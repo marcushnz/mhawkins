@@ -496,15 +496,37 @@ async function sbFetch(path, opts = {}) {
 // ══════════════════════════════════════════════════════
 // DATA — localStorage fallback, Supabase if configured
 // ══════════════════════════════════════════════════════
+let firstLoad = true;
+
 async function loadSubmissions() {
   if (supabaseConfig) {
     const data = await sbFetch('bl_submissions?order=submitted_at.desc');
-    if (data) { submissions = data; renderAll(); return; }
+    if (data) {
+      submissions = data;
+      if (firstLoad) {
+        // On first load, render everything including pending
+        renderAll();
+        firstLoad = false;
+      } else {
+        // After actions, only refresh approved/declined — pending managed by animateOut
+        renderApprovedDeclinedOnly();
+        updateStatsOnly();
+      }
+      return;
+    }
   }
   // Fallback: localStorage
   const raw = localStorage.getItem('bl_submissions');
   submissions = raw ? JSON.parse(raw) : [];
   renderAll();
+  firstLoad = false;
+}
+
+function renderApprovedDeclinedOnly() {
+  const approved = submissions.filter(s => s.status === 'approved');
+  const declined = submissions.filter(s => s.status === 'declined');
+  renderList('list-approved', approved, 'approved');
+  renderList('list-declined', declined, 'declined');
 }
 
 function saveSubmissions() {
@@ -861,6 +883,7 @@ function unhideBook(id) {
 function init() {
   loadSupabaseConfig();
   renderCurrentListings();
+  firstLoad = true;
   // Pre-fill saved Supabase settings
   if (supabaseConfig) {
     document.getElementById('sb-url').value = supabaseConfig.url || '';
