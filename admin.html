@@ -331,6 +331,7 @@
 
     <!-- Pending tab -->
     <div class="tab-panel active" id="tab-pending">
+      <div id="loading-indicator" style="text-align:center; padding:3rem; font-family:'Barlow',sans-serif; font-size:0.85rem; color:#a09080;">Loading submissions…</div>
       <div class="submissions-list" id="list-pending"></div>
     </div>
 
@@ -499,22 +500,36 @@ async function sbFetch(path, opts = {}) {
 let firstLoad = true;
 
 async function loadSubmissions() {
+  const loader = document.getElementById('loading-indicator');
+  if (loader) loader.style.display = 'block';
+
   if (supabaseConfig) {
-    const data = await sbFetch('bl_submissions?order=submitted_at.desc');
-    if (data) {
-      submissions = data;
-      if (firstLoad) {
-        // On first load, render everything including pending
-        renderAll();
-        firstLoad = false;
+    try {
+      const data = await sbFetch('bl_submissions?order=submitted_at.desc');
+      if (loader) loader.style.display = 'none';
+      if (data && Array.isArray(data)) {
+        submissions = data;
+        if (firstLoad) {
+          renderAll();
+          firstLoad = false;
+        } else {
+          renderApprovedDeclinedOnly();
+          updateStatsOnly();
+        }
+        return;
       } else {
-        // After actions, only refresh approved/declined — pending managed by animateOut
-        renderApprovedDeclinedOnly();
-        updateStatsOnly();
+        // Supabase returned null or error
+        if (loader) loader.innerHTML = '⚠ Could not load from Supabase. Check your connection.';
+        console.error('Supabase returned:', data);
       }
-      return;
+    } catch(e) {
+      if (loader) loader.innerHTML = '⚠ Error connecting to Supabase: ' + e.message;
+      console.error('loadSubmissions error:', e);
     }
+  } else {
+    if (loader) loader.style.display = 'none';
   }
+
   // Fallback: localStorage
   const raw = localStorage.getItem('bl_submissions');
   submissions = raw ? JSON.parse(raw) : [];
