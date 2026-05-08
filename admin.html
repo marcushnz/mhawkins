@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_49.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_50.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -151,7 +151,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
 
   <div class="tab-bar">
     <div class="tab-bar-inner">
-      <button class="tab-btn active" data-tab="pending">Pending <span class="badge" id="badge-pending">0</span></button>
+      <button class="tab-btn active" data-tab="pending">Pending <span class="badge" id="badge-pending">1</span></button>
       <button class="tab-btn" data-tab="approved">Approved <span class="badge green" id="badge-approved">3</span></button>
       <button class="tab-btn" data-tab="declined">Declined <span class="badge muted" id="badge-declined">1</span></button>
       <button class="tab-btn" data-tab="listings">Current Listings</button>
@@ -161,13 +161,43 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
 
   <div class="admin-main">
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-val" id="stat-pending">0</div></div>
+      <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-val" id="stat-pending">1</div></div>
       <div class="stat-card"><div class="stat-label">Approved</div><div class="stat-val" id="stat-approved">3</div></div>
       <div class="stat-card"><div class="stat-label">Declined</div><div class="stat-val" id="stat-declined">1</div></div>
-      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val" id="stat-total">4</div></div>
+      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val" id="stat-total">5</div></div>
     </div>
 
-    <div class="tab-panel active" id="tab-pending"><div class="submissions-list" id="list-pending"><div class="empty-state"><h3>No pending submissions</h3><p>New submissions will appear here.</p></div></div></div>
+    <div class="tab-panel active" id="tab-pending"><div class="submissions-list" id="list-pending"><div class="sub-card" id="card-local-1778281629328">
+    <div class="sub-card-header">
+      <div style="flex:1;min-width:0">
+        <div class="sub-book-title">The Art of Low-Carb Living</div>
+        <div class="sub-book-author">by Dr Test Author</div>
+        <div class="sub-meta">
+          <span class="sub-tag tag-genre">Health &amp; Medicine</span>
+          <span class="sub-tag tag-pending">Pending Review</span>
+          <span class="sub-tag tag-date">9 May 2026</span>
+          <select class="listing-select" onchange="doListingType(&#39;local-1778281629328&#39;, this.value)">
+    <option value="new_arrivals" selected="">New Arrivals</option>
+    <option value="featured">Featured</option>
+  </select>
+        </div>
+      </div>
+      <div class="sub-card-actions"><button class="btn-approve" onclick="doApprove(&#39;local-1778281629328&#39;)">✓ Approve</button>
+       <button class="btn-decline" onclick="doDecline(&#39;local-1778281629328&#39;)">✕ Decline</button>
+       <button class="btn-delete" onclick="doDelete(&#39;local-1778281629328&#39;)">Remove</button></div>
+      <svg onclick="toggleCard(&#39;local-1778281629328&#39;)" class="expand-arrow" id="arrow-local-1778281629328" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="sub-card-body" id="body-local-1778281629328">
+      <div class="sub-detail-grid">
+        <div><div class="sub-detail-label">Submitter</div><div class="sub-detail-value">Test Submitter</div></div>
+        <div><div class="sub-detail-label">Email</div><div class="sub-detail-value"><a href="mailto:test@example.com">test@example.com</a></div></div>
+        <div><div class="sub-detail-label">Kindle Price</div><div class="sub-detail-value">9.99</div></div>
+        <div><div class="sub-detail-label">Amazon Link</div><div class="sub-detail-value"><a href="https://www.amazon.com/dp/TESTBOOK123" target="_blank">https://www.amazon.com/dp/TESTBOOK123</a></div></div>
+      </div>
+      <div class="sub-detail-label">Description</div>
+      <div class="sub-desc-full">A practical guide to therapeutic carbohydrate restriction.</div>
+    </div>
+  </div></div></div>
     <div class="tab-panel" id="tab-approved"><div class="submissions-list" id="list-approved"><div class="sub-card" id="card-local-1778280099499">
     <div class="sub-card-header">
       <div style="flex:1;min-width:0">
@@ -405,7 +435,11 @@ async function loadSubmissions() {
 
 // ══ ACTIONS ══
 function syncToSupabase(id, data, method='PATCH') {
-  if (isNaN(Number(id))) return; // skip non-numeric IDs
+  // Skip if ID is not a pure number (test/local submissions)
+  if (!/^\d+$/.test(String(id))) {
+    console.log('Skipping Supabase sync for local ID:', id);
+    return;
+  }
   const url = `${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`;
   fetch(url, {
     method: method,
