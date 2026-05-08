@@ -165,13 +165,13 @@
   .btn-undo:hover { border-color: #a09080; color: var(--paper); }
 
   .btn-delete {
-    background: transparent; color: #e74c3c; border: 1px solid #e74c3c;
-    padding: 0.4rem 0.8rem; font-family: 'Barlow', sans-serif;
-    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    background: #e74c3c; color: #fff; border: 1px solid #e74c3c;
+    padding: 0.45rem 0.9rem; font-family: 'Barlow', sans-serif;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     cursor: pointer; border-radius: 2px; transition: all 0.2s;
     display: flex; align-items: center; gap: 0.3rem;
   }
-  .btn-delete:hover { background: #e74c3c; color: #fff; }
+  .btn-delete:hover { background: #c0392b; border-color: #c0392b; }
 
   .sub-card-body {
     padding: 0 1.5rem 1.2rem;
@@ -679,7 +679,25 @@ function esc(str) {
 // ══════════════════════════════════════════════════════
 async function approve(id) {
   await updateStatus(id, 'approved');
+  animateOut(id);
   showToast('Book approved and now live on the site.', 'success');
+}
+
+function animateOut(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (card) {
+    card.style.transition = 'all 0.4s ease';
+    card.style.opacity = '0';
+    card.style.transform = 'translateX(30px)';
+    card.style.maxHeight = card.offsetHeight + 'px';
+    setTimeout(() => {
+      card.style.maxHeight = '0';
+      card.style.margin = '0';
+      card.style.padding = '0';
+      card.style.overflow = 'hidden';
+      setTimeout(() => card.remove(), 300);
+    }, 400);
+  }
 }
 
 async function deleteSubmission(id) {
@@ -716,6 +734,7 @@ async function updateListingType(id, listingType) {
 
 async function decline(id) {
   await updateStatus(id, 'declined');
+  animateOut(id);
   showToast('Submission declined.', 'error');
 }
 
