@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_36.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_37.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -503,19 +503,12 @@ async function loadSubmissions() {
   const loader = document.getElementById('loading-indicator');
   if (loader) loader.style.display = 'none';
 
-  // Check localStorage first
+  // Load from localStorage
   const raw = localStorage.getItem('bl_submissions');
   const local = raw ? JSON.parse(raw) : [];
 
-  if (local.length > 0) {
-    // Use localStorage as source of truth
-    submissions = local;
-    renderAll();
-    firstLoad = false;
-    return;
-  }
-
-  // Only load from Supabase if localStorage is empty
+  // Load from Supabase
+  let remote = [];
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?order=submitted_at.desc`, {
       headers: {
@@ -523,22 +516,30 @@ async function loadSubmissions() {
         'Authorization': `Bearer ${SUPABASE_KEY}`
       }
     });
-    if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        submissions = data;
-        // Save to localStorage so future loads use it
-        localStorage.setItem('bl_submissions', JSON.stringify(submissions));
-        renderAll();
-        firstLoad = false;
-        return;
-      }
-    }
+    if (res.ok) remote = await res.json();
   } catch(e) {
-    console.warn('Supabase load failed, using empty list');
+    console.warn('Supabase load failed');
   }
 
-  submissions = [];
+  // Merge: start with remote, apply local statuses on top
+  // Local-only submissions (not in Supabase) are kept as-is
+  const remoteIds = new Set(remote.map(r => String(r.id)));
+  const localOnly = local.filter(l => !remoteIds.has(String(l.id)));
+
+  // For remote items, use local status if available (local is source of truth for status)
+  const localMap = {};
+  local.forEach(l => { localMap[String(l.id)] = l; });
+
+  const merged = remote.map(r => {
+    const localVersion = localMap[String(r.id)];
+    return localVersion ? { ...r, status: localVersion.status } : r;
+  });
+
+  submissions = [...localOnly, ...merged];
+
+  // Save merged result back to localStorage
+  localStorage.setItem('bl_submissions', JSON.stringify(submissions));
+
   renderAll();
   firstLoad = false;
 }
