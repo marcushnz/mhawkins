@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_50.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_51.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -337,11 +337,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
         <input class="settings-input" type="password" id="confirm-pass" placeholder="Repeat new password">
         <button class="settings-btn" id="changePassBtn">Update Password</button>
       </div>
-      <div class="settings-card">
-        <div class="settings-title">Add a Test Submission</div>
-        <div class="settings-sub">Add a sample pending submission to test the workflow.</div>
-        <button class="settings-btn" id="testSubBtn">Add Test Submission</button>
-      </div>
+
     </div>
   </div>
 </div>
@@ -627,26 +623,7 @@ document.getElementById('changePassBtn').addEventListener('click', () => {
   showToast('Password updated successfully.', 'success');
 });
 
-document.getElementById('testSubBtn').addEventListener('click', () => {
-  const test = {
-    id: 'local-' + Date.now(),
-    book_title: 'The Art of Low-Carb Living',
-    author: 'Dr Test Author',
-    genre: 'Health & Medicine',
-    kindle_price: '9.99',
-    description: 'A practical guide to therapeutic carbohydrate restriction.',
-    amazon_link: 'https://www.amazon.com/dp/TESTBOOK123',
-    submitter: 'Test Submitter',
-    email: 'test@example.com',
-    status: 'pending',
-    listing_type: 'new_arrivals',
-    submitted_at: new Date().toISOString()
-  };
-  submissions.unshift(test);
-  saveSubmissions();
-  renderAll();
-  showToast('Test submission added.', 'success');
-});
+
 
 // ══ TOAST ══
 let toastTimer;
