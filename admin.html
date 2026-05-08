@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_33.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_34.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -921,21 +921,22 @@ function init() {
   }
   loadSubmissions();
 
-  // Event delegation for all card action buttons
-  document.addEventListener('click', function(e) {
-    const btn = e.target.closest('button[data-action]');
-    if (!btn) return;
-    e.stopPropagation();
-    const id = btn.dataset.id;
-    const action = btn.dataset.action;
-    if (!id || !action) return;
-    console.log('Button clicked:', action, id);
-    if (action === 'approve') approve(id);
-    else if (action === 'decline') decline(id);
-    else if (action === 'pending') setPending(id);
-    else if (action === 'delete') deleteSubmission(id);
-  });
 }
+
+// Global event delegation - fires regardless of login state
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  e.stopPropagation();
+  const id = btn.dataset.id;
+  const action = btn.dataset.action;
+  if (!id || !action) return;
+  console.log('Button clicked:', action, id);
+  if (action === 'approve') approve(id);
+  else if (action === 'decline') decline(id);
+  else if (action === 'pending') setPending(id);
+  else if (action === 'delete') deleteSubmission(id);
+});
 
 // Auto-login if session still valid
 if (localStorage.getItem('bl_admin_auth') === '1') {
