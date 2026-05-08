@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_42.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_45.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -126,7 +126,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
 <body>
 
 <!-- LOGIN -->
-<div class="login-wrap" id="loginScreen">
+<div class="login-wrap" id="loginScreen" style="display: none;">
   <div class="login-box">
     <div class="login-logo">Book Launch</div>
     <div class="login-sub">Admin Panel</div>
@@ -138,7 +138,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
 </div>
 
 <!-- ADMIN SHELL -->
-<div class="admin-shell" id="adminShell">
+<div class="admin-shell" id="adminShell" style="display: flex;">
   <header class="admin-header">
     <div class="admin-header-inner">
       <div class="admin-logo">Book Launch <span>Admin</span></div>
@@ -152,8 +152,8 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
   <div class="tab-bar">
     <div class="tab-bar-inner">
       <button class="tab-btn active" data-tab="pending">Pending <span class="badge" id="badge-pending">0</span></button>
-      <button class="tab-btn" data-tab="approved">Approved <span class="badge green" id="badge-approved">0</span></button>
-      <button class="tab-btn" data-tab="declined">Declined <span class="badge muted" id="badge-declined">0</span></button>
+      <button class="tab-btn" data-tab="approved">Approved <span class="badge green" id="badge-approved">2</span></button>
+      <button class="tab-btn" data-tab="declined">Declined <span class="badge muted" id="badge-declined">1</span></button>
       <button class="tab-btn" data-tab="listings">Current Listings</button>
       <button class="tab-btn" data-tab="settings">Settings</button>
     </div>
@@ -162,14 +162,101 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
   <div class="admin-main">
     <div class="stats-row">
       <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-val" id="stat-pending">0</div></div>
-      <div class="stat-card"><div class="stat-label">Approved</div><div class="stat-val" id="stat-approved">0</div></div>
-      <div class="stat-card"><div class="stat-label">Declined</div><div class="stat-val" id="stat-declined">0</div></div>
-      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val" id="stat-total">0</div></div>
+      <div class="stat-card"><div class="stat-label">Approved</div><div class="stat-val" id="stat-approved">2</div></div>
+      <div class="stat-card"><div class="stat-label">Declined</div><div class="stat-val" id="stat-declined">1</div></div>
+      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val" id="stat-total">3</div></div>
     </div>
 
-    <div class="tab-panel active" id="tab-pending"><div class="submissions-list" id="list-pending"></div></div>
-    <div class="tab-panel" id="tab-approved"><div class="submissions-list" id="list-approved"></div></div>
-    <div class="tab-panel" id="tab-declined"><div class="submissions-list" id="list-declined"></div></div>
+    <div class="tab-panel active" id="tab-pending"><div class="submissions-list" id="list-pending"><div class="empty-state"><h3>No pending submissions</h3><p>New submissions will appear here.</p></div></div></div>
+    <div class="tab-panel" id="tab-approved"><div class="submissions-list" id="list-approved"><div class="sub-card" id="card-sub-1778274373729-o6az5">
+    <div class="sub-card-header">
+      <div style="flex:1;min-width:0">
+        <div class="sub-book-title">aef</div>
+        <div class="sub-book-author">by aega</div>
+        <div class="sub-meta">
+          <span class="sub-tag tag-genre">Fiction</span>
+          <span class="sub-tag tag-approved">✓ Approved</span>
+          <span class="sub-tag tag-date">9 May 2026</span>
+          <select class="listing-select" onchange="doListingType(&#39;sub-1778274373729-o6az5&#39;, this.value)">
+    <option value="new_arrivals" selected="">New Arrivals</option>
+    <option value="featured">Featured</option>
+  </select>
+        </div>
+      </div>
+      <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;sub-1778274373729-o6az5&#39;)">Undo</button>
+       <button class="btn-delete" onclick="doDelete(&#39;sub-1778274373729-o6az5&#39;)">Remove</button></div>
+      <svg onclick="toggleCard(&#39;sub-1778274373729-o6az5&#39;)" class="expand-arrow" id="arrow-sub-1778274373729-o6az5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="sub-card-body" id="body-sub-1778274373729-o6az5">
+      <div class="sub-detail-grid">
+        <div><div class="sub-detail-label">Submitter</div><div class="sub-detail-value">asdfda</div></div>
+        <div><div class="sub-detail-label">Email</div><div class="sub-detail-value"><a href="mailto:marcushnz@outlook.co.nz">marcushnz@outlook.co.nz</a></div></div>
+        <div><div class="sub-detail-label">Kindle Price</div><div class="sub-detail-value">10</div></div>
+        <div><div class="sub-detail-label">Amazon Link</div><div class="sub-detail-value"><a href="https://www.amazon.com/dp/B0GYDXXVQC" target="_blank">https://www.amazon.com/dp/B0GYDXXVQC</a></div></div>
+      </div>
+      <div class="sub-detail-label">Description</div>
+      <div class="sub-desc-full">dsafda afda afadf adsfdafads</div>
+    </div>
+  </div><div class="sub-card" id="card-1">
+    <div class="sub-card-header">
+      <div style="flex:1;min-width:0">
+        <div class="sub-book-title">dsfdsaDSF</div>
+        <div class="sub-book-author">by DFGDA</div>
+        <div class="sub-meta">
+          <span class="sub-tag tag-genre">Other</span>
+          <span class="sub-tag tag-approved">✓ Approved</span>
+          <span class="sub-tag tag-date">9 May 2026</span>
+          <select class="listing-select" onchange="doListingType(&#39;1&#39;, this.value)">
+    <option value="new_arrivals" selected="">New Arrivals</option>
+    <option value="featured">Featured</option>
+  </select>
+        </div>
+      </div>
+      <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;1&#39;)">Undo</button>
+       <button class="btn-delete" onclick="doDelete(&#39;1&#39;)">Remove</button></div>
+      <svg onclick="toggleCard(&#39;1&#39;)" class="expand-arrow" id="arrow-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="sub-card-body" id="body-1">
+      <div class="sub-detail-grid">
+        <div><div class="sub-detail-label">Submitter</div><div class="sub-detail-value">MH</div></div>
+        <div><div class="sub-detail-label">Email</div><div class="sub-detail-value"><a href="mailto:marcushnz@outlook.co.nz">marcushnz@outlook.co.nz</a></div></div>
+        <div><div class="sub-detail-label">Kindle Price</div><div class="sub-detail-value">11</div></div>
+        <div><div class="sub-detail-label">Amazon Link</div><div class="sub-detail-value"><a href="https://www.amazon.com/dp/B0GYDXXVQC" target="_blank">https://www.amazon.com/dp/B0GYDXXVQC</a></div></div>
+      </div>
+      <div class="sub-detail-label">Description</div>
+      <div class="sub-desc-full">DADSGF ADFD ASDFADD DASGFDFA</div>
+    </div>
+  </div></div></div>
+    <div class="tab-panel" id="tab-declined"><div class="submissions-list" id="list-declined"><div class="sub-card" id="card-test-1778227360868">
+    <div class="sub-card-header">
+      <div style="flex:1;min-width:0">
+        <div class="sub-book-title">The Art of Low-Carb Living</div>
+        <div class="sub-book-author">by Dr Test Author</div>
+        <div class="sub-meta">
+          <span class="sub-tag tag-genre">Health &amp; Medicine</span>
+          <span class="sub-tag tag-declined">✕ Declined</span>
+          <span class="sub-tag tag-date">8 May 2026</span>
+          <select class="listing-select" onchange="doListingType(&#39;test-1778227360868&#39;, this.value)">
+    <option value="new_arrivals">New Arrivals</option>
+    <option value="featured" selected="">Featured</option>
+  </select>
+        </div>
+      </div>
+      <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;test-1778227360868&#39;)">Undo</button>
+       <button class="btn-delete" onclick="doDelete(&#39;test-1778227360868&#39;)">Remove</button></div>
+      <svg onclick="toggleCard(&#39;test-1778227360868&#39;)" class="expand-arrow" id="arrow-test-1778227360868" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="sub-card-body" id="body-test-1778227360868">
+      <div class="sub-detail-grid">
+        <div><div class="sub-detail-label">Submitter</div><div class="sub-detail-value">Test Submitter</div></div>
+        <div><div class="sub-detail-label">Email</div><div class="sub-detail-value"><a href="mailto:test@example.com">test@example.com</a></div></div>
+        <div><div class="sub-detail-label">Kindle Price</div><div class="sub-detail-value">9.99</div></div>
+        <div><div class="sub-detail-label">Amazon Link</div><div class="sub-detail-value"><a href="https://www.amazon.com/dp/TESTBOOK123" target="_blank">https://www.amazon.com/dp/TESTBOOK123</a></div></div>
+      </div>
+      <div class="sub-detail-label">Description</div>
+      <div class="sub-desc-full">A practical guide to therapeutic carbohydrate restriction for metabolic health, written for patients and clinicians alike. Covers the science, the practice, and the evidence.</div>
+    </div>
+  </div></div></div>
 
     <div class="tab-panel" id="tab-listings">
       <div class="settings-card" style="margin-bottom:1rem">
@@ -301,7 +388,6 @@ async function loadSubmissions() {
 
 // ══ ACTIONS ══
 function doApprove(id) {
-  alert('Approving: ' + id);
   const sub = submissions.find(s => String(s.id) === String(id));
   if (sub) { sub.status = 'approved'; saveSubmissions(); }
   // Sync to Supabase if numeric ID
