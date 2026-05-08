@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_28.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_29.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -693,13 +693,19 @@ function esc(str) {
 // ACTIONS — simple direct Supabase + reload
 // ══════════════════════════════════════════════════════
 async function approve(id) {
+  console.log('Approving id:', id);
+  console.log('Submissions before:', JSON.stringify(submissions));
   await setStatus(id, 'approved');
+  console.log('Submissions after:', JSON.stringify(submissions));
+  console.log('localStorage:', localStorage.getItem('bl_submissions'));
   showToast('Book approved and now live on the site.', 'success');
   setTimeout(() => location.reload(), 1000);
 }
 
 async function decline(id) {
+  console.log('Declining id:', id);
   await setStatus(id, 'declined');
+  console.log('localStorage after:', localStorage.getItem('bl_submissions'));
   showToast('Submission declined.', 'error');
   setTimeout(() => location.reload(), 1000);
 }
