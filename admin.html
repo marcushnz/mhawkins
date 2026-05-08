@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_20.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_21.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -545,10 +545,12 @@ function renderApprovedDeclinedOnly() {
 }
 
 function saveSubmissions() {
+  // Use a flag to prevent storage events from triggering reload
+  window._savingSubmissions = true;
   localStorage.setItem('bl_submissions', JSON.stringify(submissions));
-  // Also update the public approved books store
   const approved = submissions.filter(s => s.status === 'approved');
   localStorage.setItem('bl_approved_books', JSON.stringify(approved));
+  setTimeout(() => { window._savingSubmissions = false; }, 100);
 }
 
 async function updateStatus(id, status) {
@@ -921,9 +923,10 @@ function init() {
   loadSubmissions();
 
   // Listen for new submissions from submit.html (same-browser)
-  window.addEventListener('storage', e => {
-    if (e.key === 'bl_submissions') loadSubmissions();
-  });
+  // Don't reload on storage events we triggered ourselves
+  // window.addEventListener('storage', e => {
+  //   if (e.key === 'bl_submissions') loadSubmissions();
+  // });
 }
 
 // Auto-login if session still valid
