@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_24.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_25.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -501,36 +501,7 @@ let firstLoad = true;
 
 async function loadSubmissions() {
   const loader = document.getElementById('loading-indicator');
-  if (loader) loader.style.display = 'block';
-
-  if (supabaseConfig) {
-    try {
-      const data = await sbFetch('bl_submissions?order=submitted_at.desc');
-      if (loader) loader.style.display = 'none';
-      if (data && Array.isArray(data)) {
-        submissions = data;
-        if (firstLoad) {
-          renderAll();
-          firstLoad = false;
-        } else {
-          renderApprovedDeclinedOnly();
-          updateStatsOnly();
-        }
-        return;
-      } else {
-        // Supabase returned null or error
-        if (loader) loader.innerHTML = '⚠ Could not load from Supabase. Check your connection.';
-        console.error('Supabase returned:', data);
-      }
-    } catch(e) {
-      if (loader) loader.innerHTML = '⚠ Error connecting to Supabase: ' + e.message;
-      console.error('loadSubmissions error:', e);
-    }
-  } else {
-    if (loader) loader.style.display = 'none';
-  }
-
-  // Fallback: localStorage
+  if (loader) loader.style.display = 'none';
   const raw = localStorage.getItem('bl_submissions');
   submissions = raw ? JSON.parse(raw) : [];
   renderAll();
@@ -770,53 +741,20 @@ async function setPending(id) {
 }
 
 async function setStatus(id, status) {
-  // Disable all buttons on the card immediately
-  const card = document.getElementById(`card-${id}`);
-  if (card) {
-    card.querySelectorAll('button').forEach(b => b.disabled = true);
-    card.style.opacity = '0.4';
+  const sub = submissions.find(s => s.id === id);
+  if (sub) {
+    sub.status = status;
+    sub.reviewed_at = new Date().toISOString();
   }
-  // Direct fetch to Supabase
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
-      method: 'PATCH',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ status: status, reviewed_at: new Date().toISOString() })
-    });
-    if (!res.ok) {
-      const err = await res.text();
-      console.error('Supabase PATCH error:', res.status, err);
-      showToast('Error updating status: ' + res.status, 'error');
-    }
-  } catch(e) {
-    console.error('setStatus error:', e);
-    showToast('Network error. Please try again.', 'error');
-  }
+  saveSubmissions();
 }
 
 async function deleteSubmission(id) {
   if (!confirm('Permanently remove this submission? This cannot be undone.')) return;
-  const card = document.getElementById(`card-${id}`);
-  if (card) { card.querySelectorAll('button').forEach(b => b.disabled = true); card.style.opacity = '0.4'; }
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
-      method: 'DELETE',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Prefer': 'return=minimal'
-      }
-    });
-    showToast('Submission removed.', 'error');
-    setTimeout(() => location.reload(), 1000);
-  } catch(e) {
-    showToast('Error removing submission.', 'error');
-  }
+  submissions = submissions.filter(s => s.id !== id);
+  saveSubmissions();
+  showToast('Submission removed.', 'error');
+  setTimeout(() => location.reload(), 1000);
 }
 
 async function updateListingType(id, listingType) {
