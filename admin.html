@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_48.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_49.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -380,38 +380,26 @@ function saveSubmissions() {
 }
 
 async function loadSubmissions() {
-  // Load from localStorage
+  // localStorage is the ONLY source of truth for display
   const raw = localStorage.getItem('bl_submissions');
-  const local = raw ? JSON.parse(raw) : [];
-
-  // Try to load from Supabase and merge
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?order=submitted_at.desc`, {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-    });
-    if (res.ok) {
-      const remote = await res.json();
-      if (Array.isArray(remote)) {
-        // Build map of local statuses (source of truth)
-        const localMap = {};
-        local.forEach(l => { localMap[String(l.id)] = l.status; });
-        const remoteIds = new Set(remote.map(r => String(r.id)));
-        // Keep local-only items
-        const localOnly = local.filter(l => !remoteIds.has(String(l.id)));
-        // Merge: use local status if available
-        const merged = remote.map(r => ({
-          ...r,
-          status: localMap[String(r.id)] || r.status || 'pending'
-        }));
-        submissions = [...localOnly, ...merged];
-        saveSubmissions();
-        renderAll();
-        return;
+  submissions = raw ? JSON.parse(raw) : [];
+  
+  // If localStorage is empty, try fetching from Supabase once
+  if (submissions.length === 0) {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?order=submitted_at.desc`, {
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+      });
+      if (res.ok) {
+        const remote = await res.json();
+        if (Array.isArray(remote) && remote.length > 0) {
+          submissions = remote;
+          saveSubmissions(); // Cache in localStorage
+        }
       }
-    }
-  } catch(e) { console.warn('Supabase load failed, using localStorage'); }
+    } catch(e) { console.warn('Supabase initial load failed'); }
+  }
 
-  submissions = local;
   renderAll();
 }
 
