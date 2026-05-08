@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_23.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_24.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -749,79 +749,97 @@ function esc(str) {
 }
 
 // ══════════════════════════════════════════════════════
-// ACTIONS
+// ACTIONS — simple direct Supabase + reload
 // ══════════════════════════════════════════════════════
 async function approve(id) {
-  const card = document.getElementById(`card-${id}`);
-  if (card) card.querySelectorAll('button').forEach(b => b.disabled = true);
-  animateOut(id);
-  await updateStatus(id, 'approved');
+  await setStatus(id, 'approved');
   showToast('Book approved and now live on the site.', 'success');
+  setTimeout(() => location.reload(), 1000);
 }
 
-function animateOut(id) {
+async function decline(id) {
+  await setStatus(id, 'declined');
+  showToast('Submission declined.', 'error');
+  setTimeout(() => location.reload(), 1000);
+}
+
+async function setPending(id) {
+  await setStatus(id, 'pending');
+  showToast('Moved back to pending.', 'success');
+  setTimeout(() => location.reload(), 1000);
+}
+
+async function setStatus(id, status) {
+  // Disable all buttons on the card immediately
   const card = document.getElementById(`card-${id}`);
   if (card) {
-    card.style.transition = 'opacity 0.3s ease';
-    card.style.opacity = '0';
-    setTimeout(() => {
-      card.style.display = 'none';
-      card.remove();
-    }, 300);
+    card.querySelectorAll('button').forEach(b => b.disabled = true);
+    card.style.opacity = '0.4';
+  }
+  // Direct fetch to Supabase
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ status: status, reviewed_at: new Date().toISOString() })
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Supabase PATCH error:', res.status, err);
+      showToast('Error updating status: ' + res.status, 'error');
+    }
+  } catch(e) {
+    console.error('setStatus error:', e);
+    showToast('Network error. Please try again.', 'error');
   }
 }
 
 async function deleteSubmission(id) {
-  if (!confirm('Are you sure you want to permanently remove this submission? This cannot be undone.')) return;
-  animateOut(id);
-  if (supabaseConfig) {
-    await sbFetch(`bl_submissions?id=eq.${id}`, {
+  if (!confirm('Permanently remove this submission? This cannot be undone.')) return;
+  const card = document.getElementById(`card-${id}`);
+  if (card) { card.querySelectorAll('button').forEach(b => b.disabled = true); card.style.opacity = '0.4'; }
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
       method: 'DELETE',
-      prefer: 'return=minimal'
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'return=minimal'
+      }
     });
-    submissions = submissions.filter(s => s.id !== id);
-  } else {
-    submissions = submissions.filter(s => s.id !== id);
-    saveSubmissions();
+    showToast('Submission removed.', 'error');
+    setTimeout(() => location.reload(), 1000);
+  } catch(e) {
+    showToast('Error removing submission.', 'error');
   }
-  updateStatsOnly();
-  showToast('Submission removed.', 'error');
 }
 
 async function updateListingType(id, listingType) {
-  const sub = submissions.find(s => s.id === id);
-  if (sub) {
-    sub.listing_type = listingType;
-    if (supabaseConfig) {
-      await sbFetch(`bl_submissions?id=eq.${id}`, {
-        method: 'PATCH',
-        prefer: 'return=minimal',
-        body: JSON.stringify({ listing_type: listingType })
-      });
-    }
-    saveSubmissions();
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ listing_type: listingType })
+    });
     showToast(`Listing type updated to ${listingType === 'featured' ? 'Featured' : 'New Arrivals'}.`, 'success');
+  } catch(e) {
+    showToast('Error updating listing type.', 'error');
   }
 }
 
-async function decline(id) {
+function animateOut(id) {
   const card = document.getElementById(`card-${id}`);
-  if (card) card.querySelectorAll('button').forEach(b => b.disabled = true);
-  animateOut(id);
-  await updateStatus(id, 'declined');
-  showToast('Submission declined.', 'error');
-}
-
-async function setPending(id) {
-  animateOut(id);
-  await updateStatus(id, 'pending');
-  // Re-render pending list to show the restored submission
-  setTimeout(() => {
-    const pending = submissions.filter(s => s.status === 'pending');
-    renderList('list-pending', pending, 'pending');
-    updateStatsOnly();
-  }, 800);
-  showToast('Submission moved back to pending.', 'success');
+  if (card) { card.style.opacity = '0'; setTimeout(() => card.remove(), 300); }
 }
 
 // ══════════════════════════════════════════════════════
