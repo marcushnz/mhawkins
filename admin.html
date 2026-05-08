@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_51.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_52.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -184,7 +184,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
       </div>
       <div class="sub-card-actions"><button class="btn-approve" onclick="doApprove(&#39;local-1778281629328&#39;)">✓ Approve</button>
        <button class="btn-decline" onclick="doDecline(&#39;local-1778281629328&#39;)">✕ Decline</button>
-       <button class="btn-delete" onclick="doDelete(&#39;local-1778281629328&#39;)">Remove</button></div>
+       <button class="btn-delete" onclick="doDelete(&#39;local-1778281629328&#39;)" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button></div>
       <svg onclick="toggleCard(&#39;local-1778281629328&#39;)" class="expand-arrow" id="arrow-local-1778281629328" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
     <div class="sub-card-body" id="body-local-1778281629328">
@@ -214,7 +214,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
         </div>
       </div>
       <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;local-1778280099499&#39;)">Undo</button>
-       <button class="btn-delete" onclick="doDelete(&#39;local-1778280099499&#39;)">Remove</button></div>
+       <button class="btn-delete" onclick="doDelete(&#39;local-1778280099499&#39;)" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button></div>
       <svg onclick="toggleCard(&#39;local-1778280099499&#39;)" class="expand-arrow" id="arrow-local-1778280099499" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
     <div class="sub-card-body" id="body-local-1778280099499">
@@ -243,7 +243,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
         </div>
       </div>
       <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;sub-1778274373729-o6az5&#39;)">Undo</button>
-       <button class="btn-delete" onclick="doDelete(&#39;sub-1778274373729-o6az5&#39;)">Remove</button></div>
+       <button class="btn-delete" onclick="doDelete(&#39;sub-1778274373729-o6az5&#39;)" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button></div>
       <svg onclick="toggleCard(&#39;sub-1778274373729-o6az5&#39;)" class="expand-arrow" id="arrow-sub-1778274373729-o6az5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
     <div class="sub-card-body" id="body-sub-1778274373729-o6az5">
@@ -272,7 +272,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
         </div>
       </div>
       <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;1&#39;)">Undo</button>
-       <button class="btn-delete" onclick="doDelete(&#39;1&#39;)">Remove</button></div>
+       <button class="btn-delete" onclick="doDelete(&#39;1&#39;)" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button></div>
       <svg onclick="toggleCard(&#39;1&#39;)" class="expand-arrow" id="arrow-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
     <div class="sub-card-body" id="body-1">
@@ -302,7 +302,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
         </div>
       </div>
       <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;test-1778227360868&#39;)">Undo</button>
-       <button class="btn-delete" onclick="doDelete(&#39;test-1778227360868&#39;)">Remove</button></div>
+       <button class="btn-delete" onclick="doDelete(&#39;test-1778227360868&#39;)" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button></div>
       <svg onclick="toggleCard(&#39;test-1778227360868&#39;)" class="expand-arrow" id="arrow-test-1778227360868" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
     </div>
     <div class="sub-card-body" id="body-test-1778227360868">
@@ -531,9 +531,9 @@ function renderCard(s, status) {
   const actions = status === 'pending'
     ? `<button class="btn-approve" onclick="doApprove('${s.id}')">✓ Approve</button>
        <button class="btn-decline" onclick="doDecline('${s.id}')">✕ Decline</button>
-       <button class="btn-delete" onclick="doDelete('${s.id}')">Remove</button>`
+       <button class="btn-delete" onclick="doDelete('${s.id}')" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button>`
     : `<button class="btn-undo" onclick="doUndo('${s.id}')">Undo</button>
-       <button class="btn-delete" onclick="doDelete('${s.id}')">Remove</button>`;
+       <button class="btn-delete" onclick="doDelete('${s.id}')" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button>`;
 
   return `<div class="sub-card" id="card-${s.id}">
     <div class="sub-card-header">
