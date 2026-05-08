@@ -515,23 +515,40 @@ function saveSubmissions() {
 }
 
 async function updateStatus(id, status) {
+  // Update local state immediately so UI reflects change instantly
+  const sub = submissions.find(s => s.id === id);
+  if (sub) {
+    sub.status = status;
+    sub.reviewed_at = new Date().toISOString();
+  }
+  saveSubmissions();
+  // Update stats and badges without re-rendering card lists
+  updateStatsOnly();
+
+  // Sync to Supabase in background
   if (supabaseConfig) {
     const result = await sbFetch(`bl_submissions?id=eq.${id}`, {
       method: 'PATCH',
       prefer: 'return=minimal',
       body: JSON.stringify({ status, reviewed_at: new Date().toISOString() })
     });
-    if (result !== null) {
-      await loadSubmissions();
-    } else {
-      showToast('Error updating status. Check Supabase connection.', 'error');
+    if (result === null) {
+      showToast('Error syncing to database. Changes saved locally.', 'error');
     }
-  } else {
-    const sub = submissions.find(s => s.id === id);
-    if (sub) { sub.status = status; sub.reviewed_at = new Date().toISOString(); }
-    saveSubmissions();
-    renderAll();
   }
+}
+
+function updateStatsOnly() {
+  const pending  = submissions.filter(s => s.status === 'pending');
+  const approved = submissions.filter(s => s.status === 'approved');
+  const declined = submissions.filter(s => s.status === 'declined');
+  document.getElementById('stat-pending').textContent  = pending.length;
+  document.getElementById('stat-approved').textContent = approved.length;
+  document.getElementById('stat-declined').textContent = declined.length;
+  document.getElementById('stat-total').textContent    = submissions.length;
+  document.getElementById('badge-pending').textContent  = pending.length;
+  document.getElementById('badge-approved').textContent = approved.length;
+  document.getElementById('badge-declined').textContent = declined.length;
 }
 
 function addTestSubmission() {
