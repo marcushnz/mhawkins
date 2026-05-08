@@ -426,13 +426,16 @@ function changePassword() {
 }
 
 // ══════════════════════════════════════════════════════
-// SUPABASE (optional)
+// SUPABASE — hardcoded credentials
 // ══════════════════════════════════════════════════════
+const SUPABASE_URL = 'https://spuacitiknlqwajwgids.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwdWFjaXRpa25scXdhandnaWRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwOTk2OTIsImV4cCI6MjA5MzY3NTY5Mn0.857idQfYIRC_vFugvjF1ebP0dtI9pdtHHPjTilUtZxk';
+
 function loadSupabaseConfig() {
-  const raw = localStorage.getItem('bl_supabase');
-  if (raw) {
-    try { supabaseConfig = JSON.parse(raw); } catch(e) {}
-  }
+  // Always use hardcoded credentials
+  supabaseConfig = { url: SUPABASE_URL, key: SUPABASE_KEY };
+  // Also save to localStorage for legacy compatibility
+  localStorage.setItem('bl_supabase', JSON.stringify(supabaseConfig));
 }
 
 function saveSupabase() {
@@ -449,10 +452,10 @@ function saveSupabase() {
 async function sbFetch(path, opts = {}) {
   if (!supabaseConfig) return null;
   const { prefer, headers: extraHeaders, ...restOpts } = opts;
-  const res = await fetch(`${supabaseConfig.url}/rest/v1/${path}`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     headers: {
-      'apikey': supabaseConfig.key,
-      'Authorization': `Bearer ${supabaseConfig.key}`,
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
       'Content-Type': 'application/json',
       'Prefer': prefer || 'return=representation',
       ...(extraHeaders || {})
@@ -613,7 +616,14 @@ function renderCard(s, status) {
     <div class="sub-card-body" id="body-${s.id}">
       <div class="sub-detail-grid">
         <div>
-          <div class="sub-detail-label">Submitter</div>
+          <div class="sub-detail-label">Listing Type</div>
+        <div class="sub-detail-value" id="listing-type-${s.id}">
+          <select onchange="updateListingType('${s.id}', this.value)" style="background:#1a1410; border:1px solid #3a3228; color:var(--paper); padding:0.3rem 0.6rem; font-family:'Barlow',sans-serif; font-size:0.8rem; border-radius:2px;">
+            <option value="new_arrivals" ${(s.listing_type||'new_arrivals')==='new_arrivals'?'selected':''}>New Arrivals</option>
+            <option value="featured" ${s.listing_type==='featured'?'selected':''}>Featured</option>
+          </select>
+        </div>
+        <div class="sub-detail-label">Submitter</div>
           <div class="sub-detail-value">${esc(s.submitter)}</div>
         </div>
         <div>
@@ -653,6 +663,22 @@ function esc(str) {
 async function approve(id) {
   await updateStatus(id, 'approved');
   showToast('Book approved and now live on the site.', 'success');
+}
+
+async function updateListingType(id, listingType) {
+  const sub = submissions.find(s => s.id === id);
+  if (sub) {
+    sub.listing_type = listingType;
+    if (supabaseConfig) {
+      await sbFetch(`bl_submissions?id=eq.${id}`, {
+        method: 'PATCH',
+        prefer: 'return=minimal',
+        body: JSON.stringify({ listing_type: listingType })
+      });
+    }
+    saveSubmissions();
+    showToast(`Listing type updated to ${listingType === 'featured' ? 'Featured' : 'New Arrivals'}.`, 'success');
+  }
 }
 
 async function decline(id) {

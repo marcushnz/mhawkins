@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Book Launch</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #1a1410; --paper: #f5f0e8; --cream: #ede8dc;
+    --accent: #c0392b; --gold: #b5892a; --muted: #7a6f62; --rule: #ccc4b4;
+  }
+  body { background: var(--paper); color: var(--ink); font-family: 'Libre Baskerville', Georgia, serif; font-size: 16px; line-height: 1.8; }
+
+  header { border-bottom: 3px double var(--ink); padding: 0 2rem; background: var(--paper); position: sticky; top: 0; z-index: 100; }
+  .masthead-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 1rem 0; }
+  .logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .logo-main { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; letter-spacing: -0.02em; color: var(--ink); }
+  .logo-sub  { font-family: 'Barlow', sans-serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-top: 2px; text-align: center; }
+  .back-link { font-family: 'Barlow', sans-serif; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--accent); }
+
+  .page-hero { background: var(--ink); color: var(--paper); padding: 3rem 2rem 2.5rem; text-align: center; }
+  .page-eyebrow { font-family: 'Barlow', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .page-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; font-style: italic; color: var(--paper); }
+
+  .content-wrap { max-width: 820px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+
+  .about-grid { display: grid; grid-template-columns: 200px 1fr; gap: 3rem; align-items: start; margin-bottom: 3rem; }
+  .about-grid > * { align-self: start; vertical-align: top; }
+
+  .about-portrait {
+    width: 200px;
+    height: 240px;
+    flex-shrink: 0;
+    box-shadow: 4px 4px 20px rgba(0,0,0,0.15);
+    overflow: hidden;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .about-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .about-intro-name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; margin-bottom: 0.2rem; margin-top: 0; line-height: 1; }
+  .about-intro-title { font-family: 'Barlow', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+  .about-intro-text { font-size: 1.05rem; line-height: 1.8; color: #2c2520; }
+
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+
+  .section-heading { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; font-style: italic; margin-bottom: 1rem; }
+  .about-text { font-size: 0.95rem; line-height: 1.85; color: #2c2520; margin-bottom: 1.2rem; }
+
+  .highlight-block { background: var(--cream); border-left: 4px solid var(--accent); padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; line-height: 1.75; color: #2c2520; font-style: italic; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .tag { font-family: 'Barlow', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; background: var(--cream); border: 1px solid var(--rule); color: var(--muted); padding: 0.3rem 0.7rem; border-radius: 2px; }
+
+  .contact-block { background: var(--ink); color: var(--paper); padding: 2rem; text-align: center; margin-top: 3rem; }
+  .contact-block h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; font-style: italic; margin-bottom: 0.5rem; }
+  .contact-block p { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 0.88rem; color: rgba(245,240,232,0.65); margin-bottom: 1rem; }
+  .contact-btn { display: inline-block; background: var(--accent); color: #fff; font-family: 'Barlow', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.4rem; text-decoration: none; border-radius: 2px; transition: background 0.2s; }
+  .contact-btn:hover { background: #96281b; }
+
+  footer { border-top: 3px double var(--ink); padding: 1.5rem 2rem; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .footer-brand { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.95rem; }
+  .footer-links { display: flex; gap: 1.2rem; }
+  .footer-links a { font-family: 'Barlow', sans-serif; font-size: 0.72rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--ink); }
+
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="masthead-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-main">Book Launch</span>
+      <span class="logo-sub">New Titles Worth Reading</span>
+    </a>
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Books
+    </a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <p class="page-eyebrow">The story behind Book Launch</p>
+  <h1 class="page-title">About</h1>
+</section>
+
+<div class="content-wrap">
+
+  <div class="about-grid">
+    <div class="about-portrait"><img src="Marcus.jpg" alt="Dr Marcus Hawkins" /></div>
+    <div>
+      <div class="about-intro-name">Dr Marcus Hawkins</div>
+      <div class="about-intro-title">GP · Auckland, New Zealand</div>
+      <p class="about-intro-text">I'm a New Zealand general practitioner based in East Tamaki, Auckland, with nearly four decades of frontline clinical experience. Over that time I've watched patients struggle with advice that simply wasn't working — and I've spent the better part of my career trying to understand why, and what actually does.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <h2 class="section-heading">Why I built Book Launch</h2>
+  <p class="about-text">Books changed how I think about medicine. Not textbooks or guidelines — but the kind of book that challenges the consensus, marshals real evidence, and asks uncomfortable questions. Whether it was Gary Taubes dismantling the fat hypothesis, Jason Fung reframing obesity as a hormonal problem, or Robert Lustig's work on sugar and metabolic disease — these books shifted my clinical practice in ways that no Continuing Professional Development (CPD) module ever did.</p>
+  <p class="about-text">Book Launch started as a simple idea: a place where books worth reading could be found easily, across every genre and format. Not just health books — though that's my world — but fiction, memoir, science, business, and everything in between. Good books deserve to be found. New authors deserve a platform.</p>
+
+  <div class="highlight-block">
+    "The books that matter most are rarely the ones that confirm what you already believe. They're the ones that make you reconsider."
+  </div>
+
+  <hr class="divider">
+
+  <h2 class="section-heading">My clinical focus</h2>
+  <p class="about-text">My research and clinical interests centre on therapeutic carbohydrate reduction as a primary care intervention — using diet as medicine for metabolic conditions including type 2 diabetes, obesity, fatty liver disease, and cardiovascular risk. I work closely with dietitian and AUT researcher Caryn Zinn, and have published across the Journal of Primary Health Care, Journal of Metabolic Health, Journal of Diabetes Research, and Nutrients.</p>
+  <p class="about-text">I have a particular interest in health equity for Māori and Pacific communities, who carry a disproportionate burden of metabolic disease in New Zealand. Much of my advocacy work focuses on making evidence-based nutritional approaches accessible and culturally appropriate for these communities.</p>
+
+  <div class="tag-list">
+    <span class="tag">Metabolic Health</span>
+    <span class="tag">Therapeutic Carbohydrate Reduction</span>
+    <span class="tag">Type 2 Diabetes</span>
+    <span class="tag">Cardiovascular Risk</span>
+    <span class="tag">Māori &amp; Pacific Health</span>
+    <span class="tag">De-prescribing</span>
+    <span class="tag">Lipidology</span>
+  </div>
+
+  <hr class="divider">
+
+  <h2 class="section-heading">The Food Fix</h2>
+  <p class="about-text">My book <em>The Food Fix: Why Carbohydrates Are Making Us Sick and How to Change It</em> draws on nearly four decades of clinical practice to make the case for therapeutic carbohydrate reduction. It's written for patients, practitioners, and anyone who has wondered why conventional dietary advice hasn't delivered the results it promised. Available now on Kindle.</p>
+
+  <hr class="divider">
+
+  <h2 class="section-heading">Beyond the clinic</h2>
+  <p class="about-text">When I'm not seeing patients or writing, I run a Facebook community of around 8,000 members focused on low-carbohydrate nutrition. I'm a baritone with a love of jazz and contemporary repertoire, an enthusiastic home cook with a particular weakness for Thai and Vietnamese food, and a flight simulation hobbyist. I drive a Daihatsu Copen — which tells you something about my character.</p>
+
+  <div class="contact-block">
+    <h3>Get in touch</h3>
+    <p>Questions about Book Launch, submissions, or anything else — I'm happy to hear from you.</p>
+    <a href="mailto:marcushnz@outlook.co.nz" class="contact-btn">Contact Dr Hawkins</a>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">Book Launch</span>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="policy.html">Content Policy</a>
+      <a href="submit.html">Submit a Book</a>
+      <a href="admin.html">Admin</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -435,6 +435,8 @@
 <script>
   const STRIPE_LINK   = 'https://buy.stripe.com/14A6oG2KlbPdddM8tl9Ve00';
   const FORMSPREE_URL = 'https://formspree.io/f/mzdovazz';
+  const SUPABASE_URL  = 'https://spuacitiknlqwajwgids.supabase.co';
+  const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwdWFjaXRpa25scXdhandnaWRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwOTk2OTIsImV4cCI6MjA5MzY3NTY5Mn0.857idQfYIRC_vFugvjF1ebP0dtI9pdtHHPjTilUtZxk';
 
   function validate() {
     let valid = true;
@@ -510,25 +512,23 @@
   }
 
   async function saveToSupabase(data) {
-    const sbRaw = localStorage.getItem('bl_supabase');
-    if (!sbRaw) return;
     try {
-      const sb = JSON.parse(sbRaw);
       const submission = {
         ...data,
         status: 'pending',
         submitted_at: new Date().toISOString()
       };
-      await fetch(sb.url + '/rest/v1/bl_submissions', {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/bl_submissions', {
         method: 'POST',
         headers: {
-          'apikey': sb.key,
-          'Authorization': 'Bearer ' + sb.key,
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
           'Content-Type': 'application/json',
           'Prefer': 'return=minimal'
         },
         body: JSON.stringify(submission)
       });
+      if (!res.ok) console.warn('Supabase error:', res.status, await res.text());
     } catch(e) { console.warn('Supabase save error:', e); }
   }
 
