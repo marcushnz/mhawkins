@@ -289,6 +289,9 @@
       <button class="tab-btn" onclick="switchTab('declined', this)">
         Declined <span class="badge muted" id="badge-declined">0</span>
       </button>
+      <button class="tab-btn" onclick="switchTab('listings', this)">
+        Current Listings
+      </button>
       <button class="tab-btn" onclick="switchTab('settings', this)">
         Settings
       </button>
@@ -339,6 +342,15 @@
     <!-- Declined tab -->
     <div class="tab-panel" id="tab-declined">
       <div class="submissions-list" id="list-declined"></div>
+    </div>
+
+    <!-- Current Listings tab -->
+    <div class="tab-panel" id="tab-listings">
+      <div class="settings-card" style="margin-bottom:1rem;">
+        <div class="settings-title">Current Listings</div>
+        <div class="settings-sub">These are the books currently hardcoded on the homepage. To remove one, click Remove — this adds it to a hidden list. You will then need to manually remove it from index.html and re-upload to Netlify.</div>
+      </div>
+      <div id="current-listings-list"></div>
     </div>
 
     <!-- Settings tab -->
@@ -751,6 +763,7 @@ function switchTab(name, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   btn.classList.add('active');
   document.getElementById(`tab-${name}`).classList.add('active');
+  if (name === 'listings') renderCurrentListings();
 }
 
 // ══════════════════════════════════════════════════════
@@ -769,11 +782,68 @@ function showToast(msg, type = 'success') {
   toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
+
+// ══════════════════════════════════════════════════════
+// CURRENT LISTINGS (hardcoded books on homepage)
+// ══════════════════════════════════════════════════════
+const HARDCODED_BOOKS = [
+  { id: 'hc-1', title: 'The Food Fix', author: 'Dr Marcus Hawkins', genre: 'Health & Nutrition', type: 'Featured', amazon: 'https://www.amazon.com/dp/B0GYDXXVQC' },
+  { id: 'hc-2', title: "Hana's Island", author: 'Julian Hill', genre: 'Fiction', type: 'Featured', amazon: 'https://www.amazon.com/dp/B0GSZHMT1M' },
+  { id: 'hc-3', title: 'Metabolical', author: 'Robert Lustig, MD', genre: 'Nutrition', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B08F7S58JY' },
+  { id: 'hc-4', title: 'The Case Against Sugar', author: 'Gary Taubes', genre: 'Health', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B01M33BP8B' },
+  { id: 'hc-5', title: 'The Obesity Code', author: 'Jason Fung, MD', genre: 'Science', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B01C6D0LCK' },
+  { id: 'hc-6', title: 'When Breath Becomes Air', author: 'Paul Kalanithi', genre: 'Memoir', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B00XSSYR50' },
+  { id: 'hc-7', title: 'The Diabetes Code', author: 'Jason Fung, MD', genre: 'Health', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B0795BLS8D' },
+  { id: 'hc-8', title: 'Normal People', author: 'Sally Rooney', genre: 'Fiction', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B07FS25XTW' },
+];
+
+function renderCurrentListings() {
+  const hidden = JSON.parse(localStorage.getItem('bl_hidden_books') || '[]');
+  const container = document.getElementById('current-listings-list');
+  if (!container) return;
+
+  container.innerHTML = HARDCODED_BOOKS.map(b => {
+    const isHidden = hidden.includes(b.id);
+    return `
+    <div class="listing-card" id="lc-${b.id}" style="${isHidden ? 'opacity:0.4;' : ''}">
+      <div class="listing-card-info">
+        <div class="listing-card-title">${b.title}</div>
+        <div class="listing-card-meta">${b.author} · ${b.genre} · ${b.type} ${isHidden ? '· <span style="color:#e74c3c;">Hidden (remove from HTML to fully delete)</span>' : ''}</div>
+      </div>
+      <div class="listing-card-actions">
+        <a href="${b.amazon}" target="_blank" class="btn-undo" style="text-decoration:none; padding:0.4rem 0.8rem;">View ↗</a>
+        ${isHidden
+          ? `<button class="btn-approve" onclick="unhideBook('${b.id}')">Restore</button>`
+          : `<button class="btn-delete" onclick="hideBook('${b.id}')">Remove</button>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function hideBook(id) {
+  const book = HARDCODED_BOOKS.find(b => b.id === id);
+  if (!confirm(`Remove "${book.title}" from the site? You will also need to delete it from index.html and re-upload to Netlify to fully remove it.`)) return;
+  const hidden = JSON.parse(localStorage.getItem('bl_hidden_books') || '[]');
+  if (!hidden.includes(id)) hidden.push(id);
+  localStorage.setItem('bl_hidden_books', JSON.stringify(hidden));
+  renderCurrentListings();
+  showToast(`"${book.title}" marked for removal. Remember to delete it from index.html and re-upload.`, 'error');
+}
+
+function unhideBook(id) {
+  const hidden = JSON.parse(localStorage.getItem('bl_hidden_books') || '[]');
+  localStorage.setItem('bl_hidden_books', JSON.stringify(hidden.filter(h => h !== id)));
+  renderCurrentListings();
+  showToast('Book restored.', 'success');
+}
+
 // ══════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════
 function init() {
   loadSupabaseConfig();
+  renderCurrentListings();
   // Pre-fill saved Supabase settings
   if (supabaseConfig) {
     document.getElementById('sb-url').value = supabaseConfig.url || '';
