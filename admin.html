@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_21.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_22.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -752,6 +752,8 @@ function esc(str) {
 // ACTIONS
 // ══════════════════════════════════════════════════════
 async function approve(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (card) card.querySelectorAll('button').forEach(b => b.disabled = true);
   animateOut(id);
   await updateStatus(id, 'approved');
   showToast('Book approved and now live on the site.', 'success');
@@ -760,17 +762,12 @@ async function approve(id) {
 function animateOut(id) {
   const card = document.getElementById(`card-${id}`);
   if (card) {
-    card.style.transition = 'all 0.4s ease';
+    card.style.transition = 'opacity 0.3s ease';
     card.style.opacity = '0';
-    card.style.transform = 'translateX(30px)';
-    card.style.maxHeight = card.offsetHeight + 'px';
     setTimeout(() => {
-      card.style.maxHeight = '0';
-      card.style.margin = '0';
-      card.style.padding = '0';
-      card.style.overflow = 'hidden';
-      setTimeout(() => card.remove(), 300);
-    }, 400);
+      card.style.display = 'none';
+      card.remove();
+    }, 300);
   }
 }
 
@@ -808,6 +805,8 @@ async function updateListingType(id, listingType) {
 }
 
 async function decline(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (card) card.querySelectorAll('button').forEach(b => b.disabled = true);
   animateOut(id);
   await updateStatus(id, 'declined');
   showToast('Submission declined.', 'error');
