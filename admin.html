@@ -1,421 +1,232 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_38.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_39.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Book Launch</title>
 <link href="./admin_files/css2" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --ink: #1a1410; --paper: #f5f0e8; --cream: #ede8dc;
-    --accent: #c0392b; --gold: #b5892a; --muted: #7a6f62;
-    --rule: #ccc4b4; --green: #1a7a34; --green-bg: #edfaf1;
-    --red-bg: #fdecea; --amber: #d4860a; --amber-bg: #fff8ec;
-    --stripe: #635bff;
-  }
-  body { background: #1a1410; color: var(--paper); font-family: 'Barlow', sans-serif; font-size: 15px; line-height: 1.6; min-height: 100vh; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1410;--paper:#f5f0e8;--cream:#ede8dc;--accent:#c0392b;--gold:#b5892a;--muted:#7a6f62;--rule:#ccc4b4;--green:#1a7a34;--bg:#1a1410;--card:#242018;--border:#3a3228}
+body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
 
-  /* ── LOGIN ── */
-  .login-wrap {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem;
-  }
-  .login-box {
-    background: #242018; border: 1px solid #3a3228;
-    padding: 2.5rem; width: 100%; max-width: 380px;
-  }
-  .login-logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900; color: var(--paper); margin-bottom: 0.2rem; }
-  .login-sub  { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
-  .login-label { display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #a09080; margin-bottom: 0.4rem; }
-  .login-input {
-    width: 100%; background: #1a1410; border: 1px solid #3a3228;
-    padding: 0.7rem 1rem; font-family: 'Barlow', sans-serif; font-size: 0.9rem;
-    color: var(--paper); outline: none; margin-bottom: 1.2rem;
-    transition: border-color 0.2s;
-  }
-  .login-input:focus { border-color: var(--gold); }
-  .login-btn {
-    width: 100%; background: var(--gold); border: none; color: #fff;
-    padding: 0.8rem; font-family: 'Barlow', sans-serif; font-size: 0.78rem;
-    font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-    cursor: pointer; transition: background 0.2s;
-  }
-  .login-btn:hover { background: #9a6e1e; }
-  .login-error { font-size: 0.78rem; color: #e74c3c; margin-top: 0.8rem; display: none; }
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+.login-box{background:var(--card);border:1px solid var(--border);padding:2.5rem;width:100%;max-width:380px}
+.login-logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--paper);margin-bottom:.2rem}
+.login-sub{font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem}
+.login-label{display:block;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#a09080;margin-bottom:.4rem}
+.login-input{width:100%;background:var(--bg);border:1px solid var(--border);padding:.7rem 1rem;font-family:'Barlow',sans-serif;font-size:.9rem;color:var(--paper);outline:none;margin-bottom:1.2rem;transition:border-color .2s}
+.login-input:focus{border-color:var(--gold)}
+.login-btn{width:100%;background:var(--gold);border:none;color:#fff;padding:.8rem;font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.login-btn:hover{background:#9a6e1e}
+.login-error{font-size:.78rem;color:#e74c3c;margin-top:.8rem;display:none}
 
-  /* ── ADMIN SHELL ── */
-  .admin-shell { display: none; min-height: 100vh; flex-direction: column; }
+/* SHELL */
+.admin-shell{display:none;min-height:100vh;flex-direction:column}
+.admin-header{background:var(--card);border-bottom:1px solid var(--border);padding:0 2rem;position:sticky;top:0;z-index:100}
+.admin-header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.9rem 0}
+.admin-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--paper)}
+.admin-logo span{color:var(--gold);font-style:italic}
+.logout-btn{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a09080;background:none;border:1px solid var(--border);padding:.35rem .8rem;cursor:pointer;transition:all .2s}
+.logout-btn:hover{border-color:var(--accent);color:var(--accent)}
 
-  .admin-header {
-    background: #242018; border-bottom: 1px solid #3a3228;
-    padding: 0 2rem; position: sticky; top: 0; z-index: 100;
-  }
-  .admin-header-inner {
-    max-width: 1200px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.9rem 0;
-  }
-  .admin-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: var(--paper); }
-  .admin-logo span { color: var(--gold); font-style: italic; }
-  .admin-nav { display: flex; align-items: center; gap: 1.5rem; }
-  .admin-nav-link {
-    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-    color: #a09080; text-decoration: none; transition: color 0.2s; cursor: pointer;
-    background: none; border: none;
-  }
-  .admin-nav-link:hover { color: var(--paper); }
-  .admin-nav-link.active { color: var(--gold); }
-  .logout-btn {
-    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    color: #a09080; background: none; border: 1px solid #3a3228;
-    padding: 0.35rem 0.8rem; cursor: pointer; transition: all 0.2s;
-  }
-  .logout-btn:hover { border-color: var(--accent); color: var(--accent); }
+/* TABS */
+.tab-bar{background:#1f1b15;border-bottom:1px solid var(--border);padding:0 2rem}
+.tab-bar-inner{max-width:1200px;margin:0 auto;display:flex;gap:0;overflow-x:auto}
+.tab-btn{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#a09080;background:none;border:none;border-bottom:2px solid transparent;padding:.8rem 1.2rem;cursor:pointer;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:.5rem}
+.tab-btn:hover{color:var(--paper)}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.badge{background:var(--accent);color:#fff;font-size:.6rem;font-weight:700;padding:.1rem .4rem;border-radius:10px;min-width:18px;text-align:center}
+.badge.green{background:var(--green)}
+.badge.muted{background:#4a4038}
 
-  /* Tabs */
-  .tab-bar {
-    background: #1f1b15; border-bottom: 1px solid #3a3228;
-    padding: 0 2rem;
-  }
-  .tab-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; }
-  .tab-btn {
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    color: #a09080; background: none; border: none; border-bottom: 2px solid transparent;
-    padding: 0.8rem 1.2rem; cursor: pointer; transition: all 0.2s; white-space: nowrap;
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .tab-btn:hover { color: var(--paper); }
-  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
-  .badge {
-    background: var(--accent); color: #fff;
-    font-size: 0.6rem; font-weight: 700;
-    padding: 0.1rem 0.4rem; border-radius: 10px; min-width: 18px; text-align: center;
-  }
-  .badge.green { background: var(--green); }
-  .badge.muted { background: #4a4038; }
+/* MAIN */
+.admin-main{flex:1;max-width:1200px;margin:0 auto;padding:2rem;width:100%}
 
-  /* Main content */
-  .admin-main { flex: 1; max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.stat-card{background:var(--card);border:1px solid var(--border);padding:1.2rem 1.4rem}
+.stat-label{font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#a09080;margin-bottom:.4rem}
+.stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--paper)}
 
-  /* Stats row */
-  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
-  .stat-card { background: #242018; border: 1px solid #3a3228; padding: 1.2rem 1.4rem; }
-  .stat-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #a09080; margin-bottom: 0.4rem; }
-  .stat-val   { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--paper); }
-  .stat-sub   { font-size: 0.7rem; color: #6a6058; margin-top: 0.2rem; }
+/* TAB PANELS */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.submissions-list{display:flex;flex-direction:column;gap:1rem}
 
-  /* Tab panels */
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
+/* CARDS */
+.sub-card{background:var(--card);border:1px solid var(--border);border-radius:2px;overflow:hidden;transition:opacity .3s}
+.sub-card-header{padding:1.2rem 1.5rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.sub-book-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--paper);margin-bottom:.2rem}
+.sub-book-author{font-size:.8rem;color:#a09080}
+.sub-meta{display:flex;align-items:center;gap:.6rem;margin-top:.5rem;flex-wrap:wrap}
+.sub-tag{font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px}
+.tag-genre{background:#2e2820;color:var(--gold);border:1px solid #4a3e28}
+.tag-pending{background:#fff8ec;color:#8a5a00;border:1px solid #f0c060}
+.tag-approved{background:#edfaf1;color:var(--green);border:1px solid #a0ddb0}
+.tag-declined{background:#fdecea;color:var(--accent);border:1px solid #f0b0a8}
+.tag-date{color:#6a6058;font-size:.62rem}
+.sub-card-actions{display:flex;gap:.5rem;align-items:center;flex-shrink:0}
 
-  /* Submission cards */
-  .submissions-list { display: flex; flex-direction: column; gap: 1rem; }
+/* ACTION BUTTONS */
+.btn-approve{background:var(--green);color:#fff;border:none;padding:.45rem .9rem;font-family:'Barlow',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .2s}
+.btn-approve:hover{background:#145e26}
+.btn-decline{background:transparent;color:var(--accent);border:1px solid var(--accent);padding:.45rem .9rem;font-family:'Barlow',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
+.btn-decline:hover{background:var(--accent);color:#fff}
+.btn-undo{background:transparent;color:#a09080;border:1px solid var(--border);padding:.4rem .8rem;font-family:'Barlow',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
+.btn-undo:hover{border-color:#a09080;color:var(--paper)}
+.btn-delete{background:#e74c3c;color:#fff;border:1px solid #e74c3c;padding:.45rem .9rem;font-family:'Barlow',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:all .2s}
+.btn-delete:hover{background:#c0392b}
 
-  .sub-card {
-    background: #242018; border: 1px solid #3a3228;
-    transition: border-color 0.2s;
-  }
-  .sub-card:hover { border-color: #5a4e42; }
-  .sub-card-header {
-    padding: 1.2rem 1.5rem;
-    display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 1rem; cursor: pointer;
-  }
-  .sub-card-title-row { flex: 1; min-width: 0; }
-  .sub-book-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--paper); margin-bottom: 0.2rem; }
-  .sub-book-author { font-size: 0.8rem; color: #a09080; }
-  .sub-meta { display: flex; align-items: center; gap: 0.6rem; margin-top: 0.5rem; flex-wrap: wrap; }
-  .sub-tag {
-    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.2rem 0.5rem; border-radius: 2px;
-  }
-  .tag-genre  { background: #2e2820; color: var(--gold); border: 1px solid #4a3e28; }
-  .tag-date   { background: transparent; color: #6a6058; border: none; }
-  .tag-email  { background: transparent; color: #6a6058; border: none; }
-  .tag-pending  { background: var(--amber-bg); color: var(--amber); border: 1px solid #f0c060; color: #8a5a00; }
-  .tag-approved { background: var(--green-bg); color: var(--green); border: 1px solid #a0ddb0; }
-  .tag-declined { background: var(--red-bg); color: var(--accent); border: 1px solid #f0b0a8; }
+/* CARD BODY */
+.sub-card-body{display:none;padding:1rem 1.5rem 1.2rem;border-top:1px solid #2e2820}
+.sub-card-body.open{display:block}
+.sub-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem 2rem;margin-bottom:1rem}
+.sub-detail-label{font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6a6058;margin-bottom:.2rem}
+.sub-detail-value{font-size:.85rem;color:var(--paper);word-break:break-word}
+.sub-detail-value a{color:var(--gold)}
+.sub-desc-full{font-size:.85rem;color:#c0b0a0;line-height:1.65;margin-top:.5rem}
+.expand-arrow{color:#6a6058;transition:transform .2s;flex-shrink:0;margin-top:2px;cursor:pointer}
+.expand-arrow.open{transform:rotate(180deg)}
 
-  .sub-card-actions { display: flex; gap: 0.5rem; align-items: flex-start; flex-shrink: 0; }
+/* LISTING TYPE */
+.listing-select{background:#1a1410;border:1px solid var(--border);color:var(--paper);padding:.3rem .6rem;font-family:'Barlow',sans-serif;font-size:.8rem;border-radius:2px;cursor:pointer}
 
-  .btn-approve {
-    background: var(--green); color: #fff; border: none;
-    padding: 0.45rem 0.9rem; font-family: 'Barlow', sans-serif;
-    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    cursor: pointer; border-radius: 2px; transition: background 0.2s;
-    display: flex; align-items: center; gap: 0.35rem;
-  }
-  .btn-approve:hover { background: #145e26; }
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:4rem 2rem;color:#6a6058}
+.empty-state h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#a09080;margin-bottom:.4rem}
+.empty-state p{font-size:.82rem}
 
-  .btn-decline {
-    background: transparent; color: var(--accent); border: 1px solid var(--accent);
-    padding: 0.45rem 0.9rem; font-family: 'Barlow', sans-serif;
-    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    cursor: pointer; border-radius: 2px; transition: all 0.2s;
-    display: flex; align-items: center; gap: 0.35rem;
-  }
-  .btn-decline:hover { background: var(--accent); color: #fff; }
+/* SETTINGS */
+.settings-card{background:var(--card);border:1px solid var(--border);padding:1.8rem;margin-bottom:1.2rem}
+.settings-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--paper);margin-bottom:.3rem}
+.settings-sub{font-size:.78rem;color:#a09080;margin-bottom:1.2rem}
+.settings-label{display:block;font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#a09080;margin-bottom:.4rem}
+.settings-btn{background:var(--gold);border:none;color:#fff;padding:.6rem 1.4rem;font-family:'Barlow',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .2s}
+.settings-btn:hover{background:#9a6e1e}
+.settings-input{width:100%;background:#1a1410;border:1px solid var(--border);padding:.65rem .9rem;font-family:'Barlow',sans-serif;font-size:.88rem;color:var(--paper);outline:none;margin-bottom:.9rem;border-radius:2px;transition:border-color .2s}
+.settings-input:focus{border-color:var(--gold)}
 
-  .btn-undo {
-    background: transparent; color: #a09080; border: 1px solid #3a3228;
-    padding: 0.4rem 0.8rem; font-family: 'Barlow', sans-serif;
-    font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    cursor: pointer; border-radius: 2px; transition: all 0.2s;
-  }
-  .btn-undo:hover { border-color: #a09080; color: var(--paper); }
+/* CURRENT LISTINGS */
+.listing-card{background:var(--card);border:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.6rem}
+.listing-card-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--paper);margin-bottom:.2rem}
+.listing-card-meta{font-family:'Barlow',sans-serif;font-size:.75rem;color:#a09080}
+.listing-card-actions{display:flex;gap:.5rem;flex-shrink:0}
 
-  .btn-delete {
-    background: #e74c3c; color: #fff; border: 1px solid #e74c3c;
-    padding: 0.45rem 0.9rem; font-family: 'Barlow', sans-serif;
-    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    cursor: pointer; border-radius: 2px; transition: all 0.2s;
-    display: flex; align-items: center; gap: 0.3rem;
-  }
-  .btn-delete:hover { background: #c0392b; border-color: #c0392b; }
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:#2e2820;border:1px solid #4a3e30;padding:.8rem 1.2rem;font-size:.82rem;color:var(--paper);display:flex;align-items:center;gap:.6rem;opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;z-index:1000;border-radius:2px}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.success{border-color:var(--green)}
+.toast.error{border-color:var(--accent)}
 
-  .sub-card-body {
-    padding: 0 1.5rem 1.2rem;
-    border-top: 1px solid #2e2820;
-    display: none;
-  }
-  .sub-card-body.open { display: block; padding-top: 1rem; }
-
-  .sub-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem 2rem; margin-bottom: 1rem; }
-  .sub-detail-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6a6058; margin-bottom: 0.2rem; }
-  .sub-detail-value { font-size: 0.85rem; color: var(--paper); word-break: break-word; }
-  .sub-detail-value a { color: var(--gold); }
-  .sub-desc-full { font-size: 0.85rem; color: #c0b0a0; line-height: 1.65; margin-top: 0.5rem; }
-
-  .expand-arrow { color: #6a6058; transition: transform 0.2s; flex-shrink: 0; margin-top: 2px; }
-  .expand-arrow.open { transform: rotate(180deg); }
-
-  /* Empty state */
-  .empty-state {
-    text-align: center; padding: 4rem 2rem;
-    color: #6a6058;
-  }
-  .empty-state svg { margin-bottom: 1rem; opacity: 0.4; }
-  .empty-state h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: #a09080; margin-bottom: 0.4rem; }
-  .empty-state p { font-size: 0.82rem; }
-
-  /* Settings panel */
-  .settings-card { background: #242018; border: 1px solid #3a3228; padding: 1.8rem; margin-bottom: 1.2rem; }
-  .settings-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--paper); margin-bottom: 0.3rem; }
-  .settings-sub   { font-size: 0.78rem; color: #a09080; margin-bottom: 1.2rem; }
-  .settings-label { display: block; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #a09080; margin-bottom: 0.4rem; }
-  .settings-input {
-    width: 100%; background: #1a1410; border: 1px solid #3a3228;
-    padding: 0.65rem 0.9rem; font-family: 'Barlow', sans-serif; font-size: 0.88rem;
-    color: var(--paper); outline: none; margin-bottom: 0.9rem; border-radius: 2px;
-    transition: border-color 0.2s;
-  }
-  .settings-input:focus { border-color: var(--gold); }
-  .settings-btn {
-    background: var(--gold); border: none; color: #fff;
-    padding: 0.6rem 1.4rem; font-family: 'Barlow', sans-serif;
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-    cursor: pointer; border-radius: 2px; transition: background 0.2s;
-  }
-  .settings-btn:hover { background: #9a6e1e; }
-  .settings-success { font-size: 0.78rem; color: var(--green); margin-top: 0.5rem; display: none; }
-
-  /* Toast */
-  .toast {
-    position: fixed; bottom: 1.5rem; right: 1.5rem;
-    background: #2e2820; border: 1px solid #4a3e30;
-    padding: 0.8rem 1.2rem; font-size: 0.82rem; color: var(--paper);
-    display: flex; align-items: center; gap: 0.6rem;
-    opacity: 0; transform: translateY(8px);
-    transition: all 0.3s; pointer-events: none; z-index: 1000;
-    border-radius: 2px;
-  }
-  .toast.show { opacity: 1; transform: translateY(0); }
-  .toast.success { border-color: var(--green); }
-  .toast.error   { border-color: var(--accent); }
-  .toast svg { flex-shrink: 0; }
-
-  /* Config notice */
-  .config-notice {
-    background: #2a1f10; border: 1px solid var(--amber);
-    padding: 1.2rem 1.5rem; margin-bottom: 1.5rem;
-    font-size: 0.82rem; color: #e8a030; line-height: 1.6;
-    display: none;
-  }
-  .config-notice strong { color: #f0c060; }
-  .config-notice code { background: #1a1410; padding: 0.1rem 0.4rem; font-size: 0.78rem; border-radius: 2px; }
-
-  @media (max-width: 700px) {
-    .stats-row { grid-template-columns: 1fr 1fr; }
-    .sub-detail-grid { grid-template-columns: 1fr; }
-    .sub-card-actions { flex-direction: column; }
-  }
+@media(max-width:700px){.stats-row{grid-template-columns:1fr 1fr}.sub-detail-grid{grid-template-columns:1fr}.sub-card-actions{flex-direction:column}}
 </style>
 </head>
 <body>
 
-<!-- ── LOGIN SCREEN ── -->
+<!-- LOGIN -->
 <div class="login-wrap" id="loginScreen">
   <div class="login-box">
     <div class="login-logo">Book Launch</div>
     <div class="login-sub">Admin Panel</div>
     <label class="login-label" for="adminPass">Password</label>
-    <input class="login-input" type="password" id="adminPass" placeholder="Enter admin password" onkeydown="if(event.key===&#39;Enter&#39;) doLogin()">
-    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <input class="login-input" type="password" id="adminPass" placeholder="Enter admin password">
+    <button class="login-btn" id="loginBtn">Sign In</button>
     <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
   </div>
 </div>
 
-<!-- ── ADMIN SHELL ── -->
+<!-- ADMIN SHELL -->
 <div class="admin-shell" id="adminShell">
-
   <header class="admin-header">
     <div class="admin-header-inner">
       <div class="admin-logo">Book Launch <span>Admin</span></div>
-      <nav class="admin-nav">
-        <a href="file:///C:/Users/marcu/Downloads/index.html" target="_blank" class="admin-nav-link">View Site ↗</a>
-        <button class="logout-btn" onclick="doLogout()">Log Out</button>
+      <nav style="display:flex;align-items:center;gap:1.5rem">
+        <a href="file:///C:/Users/marcu/Downloads/index.html" target="_blank" style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#a09080;text-decoration:none">View Site ↗</a>
+        <button class="logout-btn" id="logoutBtn">Log Out</button>
       </nav>
     </div>
   </header>
 
   <div class="tab-bar">
     <div class="tab-bar-inner">
-      <button class="tab-btn active" onclick="switchTab(&#39;pending&#39;, this)">
-        Pending <span class="badge" id="badge-pending">0</span>
-      </button>
-      <button class="tab-btn" onclick="switchTab(&#39;approved&#39;, this)">
-        Approved <span class="badge green" id="badge-approved">0</span>
-      </button>
-      <button class="tab-btn" onclick="switchTab(&#39;declined&#39;, this)">
-        Declined <span class="badge muted" id="badge-declined">0</span>
-      </button>
-      <button class="tab-btn" onclick="switchTab(&#39;listings&#39;, this)">
-        Current Listings
-      </button>
-      <button class="tab-btn" onclick="switchTab(&#39;settings&#39;, this)">
-        Settings
-      </button>
+      <button class="tab-btn active" data-tab="pending">Pending <span class="badge" id="badge-pending">0</span></button>
+      <button class="tab-btn" data-tab="approved">Approved <span class="badge green" id="badge-approved">0</span></button>
+      <button class="tab-btn" data-tab="declined">Declined <span class="badge muted" id="badge-declined">0</span></button>
+      <button class="tab-btn" data-tab="listings">Current Listings</button>
+      <button class="tab-btn" data-tab="settings">Settings</button>
     </div>
   </div>
 
   <div class="admin-main">
-
-    <!-- Config notice shown if Supabase not yet set up -->
-    <div class="config-notice" id="configNotice">
-      <strong>⚙ Setup required:</strong> To store submissions across devices, add your Supabase credentials in <strong>Settings</strong>. Until then, submissions are stored locally in this browser only.
-    </div>
-
-    <!-- Stats -->
     <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">Pending Review</div>
-        <div class="stat-val" id="stat-pending">0</div>
-        <div class="stat-sub">Awaiting decision</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Approved</div>
-        <div class="stat-val" id="stat-approved">0</div>
-        <div class="stat-sub">Live on site</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Declined</div>
-        <div class="stat-val" id="stat-declined">0</div>
-        <div class="stat-sub">Not listed</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Total Submissions</div>
-        <div class="stat-val" id="stat-total">0</div>
-        <div class="stat-sub">All time</div>
-      </div>
+      <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-val" id="stat-pending">0</div></div>
+      <div class="stat-card"><div class="stat-label">Approved</div><div class="stat-val" id="stat-approved">0</div></div>
+      <div class="stat-card"><div class="stat-label">Declined</div><div class="stat-val" id="stat-declined">0</div></div>
+      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val" id="stat-total">0</div></div>
     </div>
 
-    <!-- Pending tab -->
-    <div class="tab-panel active" id="tab-pending">
-      <div id="loading-indicator" style="text-align:center; padding:3rem; font-family:&#39;Barlow&#39;,sans-serif; font-size:0.85rem; color:#a09080;">Loading submissions…</div>
-      <div class="submissions-list" id="list-pending"></div>
-    </div>
+    <div class="tab-panel active" id="tab-pending"><div class="submissions-list" id="list-pending"></div></div>
+    <div class="tab-panel" id="tab-approved"><div class="submissions-list" id="list-approved"></div></div>
+    <div class="tab-panel" id="tab-declined"><div class="submissions-list" id="list-declined"></div></div>
 
-    <!-- Approved tab -->
-    <div class="tab-panel" id="tab-approved">
-      <div class="submissions-list" id="list-approved"></div>
-    </div>
-
-    <!-- Declined tab -->
-    <div class="tab-panel" id="tab-declined">
-      <div class="submissions-list" id="list-declined"></div>
-    </div>
-
-    <!-- Current Listings tab -->
     <div class="tab-panel" id="tab-listings">
-      <div class="settings-card" style="margin-bottom:1rem;">
+      <div class="settings-card" style="margin-bottom:1rem">
         <div class="settings-title">Current Listings</div>
-        <div class="settings-sub">These are the books currently hardcoded on the homepage. To remove one, click Remove — this adds it to a hidden list. You will then need to manually remove it from index.html and re-upload to Netlify.</div>
+        <div class="settings-sub">Hardcoded books on the homepage. Click Remove to flag for deletion, then ask Claude to remove them from index.html.</div>
       </div>
       <div id="current-listings-list"></div>
     </div>
 
-    <!-- Settings tab -->
     <div class="tab-panel" id="tab-settings">
-
       <div class="settings-card">
         <div class="settings-title">Change Admin Password</div>
-        <div class="settings-sub">This password protects access to the admin panel.</div>
+        <div class="settings-sub">Minimum 8 characters.</div>
         <label class="settings-label">Current Password</label>
         <input class="settings-input" type="password" id="curr-pass" placeholder="Current password">
         <label class="settings-label">New Password</label>
-        <input class="settings-input" type="password" id="new-pass" placeholder="New password (min 8 characters)">
+        <input class="settings-input" type="password" id="new-pass" placeholder="New password">
         <label class="settings-label">Confirm New Password</label>
         <input class="settings-input" type="password" id="confirm-pass" placeholder="Repeat new password">
-        <button class="settings-btn" onclick="changePassword()">Update Password</button>
-        <div class="settings-success" id="pass-success">✓ Password updated successfully.</div>
+        <button class="settings-btn" id="changePassBtn">Update Password</button>
       </div>
-
-      <div class="settings-card">
-        <div class="settings-title">Supabase Database (Optional)</div>
-        <div class="settings-sub">Connect a free Supabase database so submissions persist across devices and browsers. Without this, submissions are stored in this browser only. See setup instructions below.</div>
-        <label class="settings-label">Supabase URL</label>
-        <input class="settings-input" type="text" id="sb-url" placeholder="https://xxxxxxxxxxxx.supabase.co">
-        <label class="settings-label">Supabase Anon Key</label>
-        <input class="settings-input" type="text" id="sb-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
-        <button class="settings-btn" onclick="saveSupabase()">Save &amp; Test Connection</button>
-        <div class="settings-success" id="sb-success">✓ Connected to Supabase successfully.</div>
-      </div>
-
       <div class="settings-card">
         <div class="settings-title">Add a Test Submission</div>
-        <div class="settings-sub">Add a sample submission to test the review workflow.</div>
-        <button class="settings-btn" onclick="addTestSubmission()">Add Test Submission</button>
+        <div class="settings-sub">Add a sample pending submission to test the workflow.</div>
+        <button class="settings-btn" id="testSubBtn">Add Test Submission</button>
       </div>
-
     </div>
-
   </div>
 </div>
 
-<!-- Toast notification -->
-<div class="toast" id="toast">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="toast-icon"><polyline points="20 6 9 17 4 12"></polyline></svg>
-  <span id="toast-msg"></span>
-</div>
+<div class="toast" id="toast"><span id="toast-msg"></span></div>
 
 <script>
-// ══════════════════════════════════════════════════════
-// CONFIGURATION — change ADMIN_PASSWORD to your own password
-// ══════════════════════════════════════════════════════
+// ══ CONFIG ══
 const DEFAULT_PASSWORD = 'booklaunch2025';
+const SUPABASE_URL = 'https://spuacitiknlqwajwgids.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwdWFjaXRpa25scXdhandnaWRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwOTk2OTIsImV4cCI6MjA5MzY3NTY5Mn0.857idQfYIRC_vFugvjF1ebP0dtI9pdtHHPjTilUtZxk';
 
-// ══════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════
+const HARDCODED_BOOKS = [
+  {id:'hc-1',title:'The Food Fix',author:'Dr Marcus Hawkins',genre:'Health & Nutrition',type:'Featured',amazon:'https://www.amazon.com/dp/B0GYDXXVQC'},
+  {id:'hc-2',title:"Hana's Island",author:'Julian Hill',genre:'Fiction',type:'Featured',amazon:'https://www.amazon.com/dp/B0GSZHMT1M'},
+  {id:'hc-3',title:'Metabolical',author:'Robert Lustig, MD',genre:'Nutrition',type:'New Arrivals',amazon:'https://www.amazon.com/dp/B08F7S58JY'},
+  {id:'hc-4',title:'The Case Against Sugar',author:'Gary Taubes',genre:'Health',type:'New Arrivals',amazon:'https://www.amazon.com/dp/B01M33BP8B'},
+  {id:'hc-5',title:'The Obesity Code',author:'Jason Fung, MD',genre:'Science',type:'New Arrivals',amazon:'https://www.amazon.com/dp/B01C6D0LCK'},
+  {id:'hc-6',title:'When Breath Becomes Air',author:'Paul Kalanithi',genre:'Memoir',type:'New Arrivals',amazon:'https://www.amazon.com/dp/B00XSSYR50'},
+  {id:'hc-7',title:'The Diabetes Code',author:'Jason Fung, MD',genre:'Health',type:'New Arrivals',amazon:'https://www.amazon.com/dp/B0795BLS8D'},
+  {id:'hc-8',title:'Normal People',author:'Sally Rooney',genre:'Fiction',type:'New Arrivals',amazon:'https://www.amazon.com/dp/B07FS25XTW'},
+];
+
+// ══ STATE ══
 let submissions = [];
-let supabaseConfig = null;
 
-// ══════════════════════════════════════════════════════
-// AUTH
-// ══════════════════════════════════════════════════════
-function getPassword() {
-  return localStorage.getItem('bl_admin_password') || DEFAULT_PASSWORD;
-}
+// ══ AUTH ══
+function getPassword() { return localStorage.getItem('bl_admin_password') || DEFAULT_PASSWORD; }
+
+document.getElementById('loginBtn').addEventListener('click', doLogin);
+document.getElementById('adminPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 
 function doLogin() {
   const val = document.getElementById('adminPass').value;
@@ -426,275 +237,205 @@ function doLogin() {
     init();
   } else {
     document.getElementById('loginError').style.display = 'block';
-    document.getElementById('adminPass').style.borderColor = '#e74c3c';
   }
 }
 
-function doLogout() {
+document.getElementById('logoutBtn').addEventListener('click', () => {
   localStorage.removeItem('bl_admin_auth');
   location.reload();
-}
+});
 
-function changePassword() {
-  const curr = document.getElementById('curr-pass').value;
-  const newP  = document.getElementById('new-pass').value;
-  const conf  = document.getElementById('confirm-pass').value;
-  if (curr !== getPassword()) { showToast('Current password incorrect.', 'error'); return; }
-  if (newP.length < 8) { showToast('New password must be at least 8 characters.', 'error'); return; }
-  if (newP !== conf)  { showToast('Passwords do not match.', 'error'); return; }
-  localStorage.setItem('bl_admin_password', newP);
-  document.getElementById('pass-success').style.display = 'block';
-  showToast('Password updated.', 'success');
-}
-
-// ══════════════════════════════════════════════════════
-// SUPABASE — hardcoded credentials
-// ══════════════════════════════════════════════════════
-const SUPABASE_URL = 'https://spuacitiknlqwajwgids.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwdWFjaXRpa25scXdhandnaWRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwOTk2OTIsImV4cCI6MjA5MzY3NTY5Mn0.857idQfYIRC_vFugvjF1ebP0dtI9pdtHHPjTilUtZxk';
-
-function loadSupabaseConfig() {
-  // Always use hardcoded credentials
-  supabaseConfig = { url: SUPABASE_URL, key: SUPABASE_KEY };
-  // Also save to localStorage for legacy compatibility
-  localStorage.setItem('bl_supabase', JSON.stringify(supabaseConfig));
-}
-
-function saveSupabase() {
-  const url = document.getElementById('sb-url').value.trim();
-  const key = document.getElementById('sb-key').value.trim();
-  if (!url || !key) { showToast('Please enter both URL and key.', 'error'); return; }
-  supabaseConfig = { url, key };
-  localStorage.setItem('bl_supabase', JSON.stringify(supabaseConfig));
-  document.getElementById('sb-success').style.display = 'block';
-  showToast('Supabase config saved. Reloading data…', 'success');
-  setTimeout(() => loadSubmissions(), 800);
-}
-
-async function sbFetch(path, opts = {}) {
-  if (!supabaseConfig) return null;
-  const { prefer, headers: extraHeaders, ...restOpts } = opts;
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': prefer || 'return=representation',
-      ...(extraHeaders || {})
-    },
-    ...restOpts
+// ══ TABS ══
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    if (btn.dataset.tab === 'listings') renderListings();
   });
-  if (!res.ok) {
-    const errText = await res.text();
-    console.error('Supabase error:', res.status, errText);
-    return null;
-  }
-  // PATCH with return=minimal returns no body
-  if (res.status === 204 || res.headers.get('content-length') === '0') return {};
-  return res.json();
-}
+});
 
-// ══════════════════════════════════════════════════════
-// DATA — localStorage fallback, Supabase if configured
-// ══════════════════════════════════════════════════════
-let firstLoad = true;
+// ══ DATA ══
+function saveSubmissions() {
+  localStorage.setItem('bl_submissions', JSON.stringify(submissions));
+  const approved = submissions.filter(s => s.status === 'approved');
+  localStorage.setItem('bl_approved_books', JSON.stringify(approved));
+}
 
 async function loadSubmissions() {
-  const loader = document.getElementById('loading-indicator');
-  if (loader) loader.style.display = 'none';
-
   // Load from localStorage
   const raw = localStorage.getItem('bl_submissions');
   const local = raw ? JSON.parse(raw) : [];
 
-  // Load from Supabase
-  let remote = [];
+  // Try to load from Supabase and merge
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?order=submitted_at.desc`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
     });
-    if (res.ok) remote = await res.json();
-  } catch(e) {
-    console.warn('Supabase load failed');
+    if (res.ok) {
+      const remote = await res.json();
+      if (Array.isArray(remote)) {
+        // Build map of local statuses (source of truth)
+        const localMap = {};
+        local.forEach(l => { localMap[String(l.id)] = l.status; });
+        const remoteIds = new Set(remote.map(r => String(r.id)));
+        // Keep local-only items
+        const localOnly = local.filter(l => !remoteIds.has(String(l.id)));
+        // Merge: use local status if available
+        const merged = remote.map(r => ({
+          ...r,
+          status: localMap[String(r.id)] || r.status || 'pending'
+        }));
+        submissions = [...localOnly, ...merged];
+        saveSubmissions();
+        renderAll();
+        return;
+      }
+    }
+  } catch(e) { console.warn('Supabase load failed, using localStorage'); }
+
+  submissions = local;
+  renderAll();
+}
+
+// ══ ACTIONS ══
+function doApprove(id) {
+  const sub = submissions.find(s => String(s.id) === String(id));
+  if (sub) { sub.status = 'approved'; saveSubmissions(); }
+  // Sync to Supabase if numeric ID
+  if (!isNaN(Number(id))) {
+    fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ status: 'approved' })
+    }).catch(e => console.warn('Supabase sync failed:', e));
   }
-
-  // Merge: start with remote, apply local statuses on top
-  // Local-only submissions (not in Supabase) are kept as-is
-  const remoteIds = new Set(remote.map(r => String(r.id)));
-  const localOnly = local.filter(l => !remoteIds.has(String(l.id)));
-
-  // For remote items, use local status if available (local is source of truth for status)
-  const localMap = {};
-  local.forEach(l => { localMap[String(l.id)] = l; });
-
-  const merged = remote.map(r => {
-    const localVersion = localMap[String(r.id)];
-    return localVersion ? { ...r, status: localVersion.status } : r;
-  });
-
-  submissions = [...localOnly, ...merged];
-
-  // Save merged result back to localStorage
-  localStorage.setItem('bl_submissions', JSON.stringify(submissions));
-
-  renderAll();
-  firstLoad = false;
+  showToast('Book approved and now live on the site.', 'success');
+  setTimeout(() => location.reload(), 800);
 }
 
-function renderApprovedDeclinedOnly() {
-  const approved = submissions.filter(s => s.status === 'approved');
-  const declined = submissions.filter(s => s.status === 'declined');
-  renderList('list-approved', approved, 'approved');
-  renderList('list-declined', declined, 'declined');
+function doDecline(id) {
+  const sub = submissions.find(s => String(s.id) === String(id));
+  if (sub) { sub.status = 'declined'; saveSubmissions(); }
+  if (!isNaN(Number(id))) {
+    fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ status: 'declined' })
+    }).catch(e => console.warn('Supabase sync failed:', e));
+  }
+  showToast('Submission declined.', 'error');
+  setTimeout(() => location.reload(), 800);
 }
 
-function saveSubmissions() {
-  // Use a flag to prevent storage events from triggering reload
-  window._savingSubmissions = true;
-  localStorage.setItem('bl_submissions', JSON.stringify(submissions));
-  const approved = submissions.filter(s => s.status === 'approved');
-  localStorage.setItem('bl_approved_books', JSON.stringify(approved));
-  setTimeout(() => { window._savingSubmissions = false; }, 100);
+function doUndo(id) {
+  const sub = submissions.find(s => String(s.id) === String(id));
+  if (sub) { sub.status = 'pending'; saveSubmissions(); }
+  if (!isNaN(Number(id))) {
+    fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ status: 'pending' })
+    }).catch(e => console.warn('Supabase sync failed:', e));
+  }
+  showToast('Moved back to pending.', 'success');
+  setTimeout(() => location.reload(), 800);
 }
 
-function updateStatsOnly() {
-  const pending  = submissions.filter(s => s.status === 'pending');
-  const approved = submissions.filter(s => s.status === 'approved');
-  const declined = submissions.filter(s => s.status === 'declined');
-  document.getElementById('stat-pending').textContent  = pending.length;
-  document.getElementById('stat-approved').textContent = approved.length;
-  document.getElementById('stat-declined').textContent = declined.length;
-  document.getElementById('stat-total').textContent    = submissions.length;
-  document.getElementById('badge-pending').textContent  = pending.length;
-  document.getElementById('badge-approved').textContent = approved.length;
-  document.getElementById('badge-declined').textContent = declined.length;
-}
-
-function addTestSubmission() {
-  const test = {
-    id: Date.now(),
-    book_title: 'The Art of Low-Carb Living',
-    author: 'Dr Test Author',
-    genre: 'Health & Medicine',
-    kindle_price: '9.99',
-    description: 'A practical guide to therapeutic carbohydrate restriction for metabolic health, written for patients and clinicians alike. Covers the science, the practice, and the evidence.',
-    amazon_link: 'https://www.amazon.com/dp/TESTBOOK123',
-    submitter: 'Test Submitter',
-    email: 'test@example.com',
-    status: 'pending',
-    submitted_at: new Date().toISOString()
-  };
-  submissions.unshift(test);
+function doDelete(id) {
+  if (!confirm('Permanently remove this submission? This cannot be undone.')) return;
+  submissions = submissions.filter(s => String(s.id) !== String(id));
   saveSubmissions();
-  renderAll();
-  showToast('Test submission added.', 'success');
+  if (!isNaN(Number(id))) {
+    fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Prefer': 'return=minimal' }
+    }).catch(e => console.warn('Supabase delete failed:', e));
+  }
+  showToast('Submission removed.', 'error');
+  setTimeout(() => location.reload(), 800);
 }
 
-// ══════════════════════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════════════════════
+function doListingType(id, type) {
+  const sub = submissions.find(s => String(s.id) === String(id));
+  if (sub) { sub.listing_type = type; saveSubmissions(); }
+  if (!isNaN(Number(id))) {
+    fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ listing_type: type })
+    }).catch(e => console.warn('Supabase sync failed:', e));
+  }
+  showToast('Listing type updated.', 'success');
+}
+
+// ══ RENDER ══
 function renderAll() {
   const pending  = submissions.filter(s => s.status === 'pending');
   const approved = submissions.filter(s => s.status === 'approved');
   const declined = submissions.filter(s => s.status === 'declined');
-
-  // Stats
   document.getElementById('stat-pending').textContent  = pending.length;
   document.getElementById('stat-approved').textContent = approved.length;
   document.getElementById('stat-declined').textContent = declined.length;
   document.getElementById('stat-total').textContent    = submissions.length;
-
-  // Badges
   document.getElementById('badge-pending').textContent  = pending.length;
   document.getElementById('badge-approved').textContent = approved.length;
   document.getElementById('badge-declined').textContent = declined.length;
-
   renderList('list-pending',  pending,  'pending');
   renderList('list-approved', approved, 'approved');
   renderList('list-declined', declined, 'declined');
-
-  // Config notice
-  document.getElementById('configNotice').style.display = supabaseConfig ? 'none' : 'block';
 }
 
 function renderList(containerId, items, status) {
   const el = document.getElementById(containerId);
   if (!items.length) {
-    el.innerHTML = `
-      <div class="empty-state">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
-        <h3>No ${status} submissions</h3>
-        <p>${status === 'pending' ? 'New submissions will appear here.' : 'Nothing here yet.'}</p>
-      </div>`;
+    el.innerHTML = `<div class="empty-state"><h3>No ${status} submissions</h3><p>${status === 'pending' ? 'New submissions will appear here.' : 'Nothing here yet.'}</p></div>`;
     return;
   }
   el.innerHTML = items.map(s => renderCard(s, status)).join('');
 }
 
 function renderCard(s, status) {
-  const date = s.submitted_at ? new Date(s.submitted_at).toLocaleDateString('en-NZ', { day:'numeric', month:'short', year:'numeric' }) : '—';
-  const statusTag = status === 'pending'
-    ? `<span class="sub-tag tag-pending">Pending Review</span>`
-    : status === 'approved'
-    ? `<span class="sub-tag tag-approved">✓ Approved</span>`
+  const date = s.submitted_at ? new Date(s.submitted_at).toLocaleDateString('en-NZ', {day:'numeric',month:'short',year:'numeric'}) : '—';
+  const statusTag = status === 'pending' ? `<span class="sub-tag tag-pending">Pending Review</span>`
+    : status === 'approved' ? `<span class="sub-tag tag-approved">✓ Approved</span>`
     : `<span class="sub-tag tag-declined">✕ Declined</span>`;
 
-  const sid = s.id;
+  const listingType = s.listing_type || 'new_arrivals';
+  const listingSelect = `<select class="listing-select" onchange="doListingType('${s.id}', this.value)">
+    <option value="new_arrivals" ${listingType === 'new_arrivals' ? 'selected' : ''}>New Arrivals</option>
+    <option value="featured" ${listingType === 'featured' ? 'selected' : ''}>Featured</option>
+  </select>`;
+
   const actions = status === 'pending'
-    ? `<button class="btn-approve" data-id="${sid}" data-action="approve">✓ Approve</button>
-       <button class="btn-decline" data-id="${sid}" data-action="decline">✕ Decline</button>
-       <button class="btn-delete" data-id="${sid}" data-action="delete">Remove</button>`
-    : `<button class="btn-undo" data-id="${sid}" data-action="pending">Undo</button>
-       <button class="btn-delete" data-id="${sid}" data-action="delete">Remove</button>`;
+    ? `<button class="btn-approve" onclick="doApprove('${s.id}')">✓ Approve</button>
+       <button class="btn-decline" onclick="doDecline('${s.id}')">✕ Decline</button>
+       <button class="btn-delete" onclick="doDelete('${s.id}')">Remove</button>`
+    : `<button class="btn-undo" onclick="doUndo('${s.id}')">Undo</button>
+       <button class="btn-delete" onclick="doDelete('${s.id}')">Remove</button>`;
 
-  const price = s.kindle_price && s.kindle_price !== 'Not specified' ? `$${s.kindle_price}` : '—';
-
-  return `
-  <div class="sub-card" id="card-${s.id}">
-    <div class="sub-card-header" onclick="toggleCard('${s.id}')">
-      <div class="sub-card-title-row">
+  return `<div class="sub-card" id="card-${s.id}">
+    <div class="sub-card-header">
+      <div style="flex:1;min-width:0">
         <div class="sub-book-title">${esc(s.book_title)}</div>
         <div class="sub-book-author">by ${esc(s.author)}</div>
         <div class="sub-meta">
           <span class="sub-tag tag-genre">${esc(s.genre)}</span>
           ${statusTag}
           <span class="sub-tag tag-date">${date}</span>
-          <span class="sub-tag tag-email">${esc(s.email)}</span>
+          ${listingSelect}
         </div>
       </div>
-      <div style="display:flex; align-items:flex-start; gap:0.6rem;">
-        <div class="sub-card-actions">${actions}</div>
-        <svg class="expand-arrow" id="arrow-${s.id}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
+      <div class="sub-card-actions">${actions}</div>
+      <svg onclick="toggleCard('${s.id}')" class="expand-arrow" id="arrow-${s.id}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <div class="sub-card-body" id="body-${s.id}">
       <div class="sub-detail-grid">
-        <div>
-          <div class="sub-detail-label">Listing Type</div>
-        <div class="sub-detail-value" id="listing-type-${s.id}">
-          <select onchange="updateListingType('${s.id}', this.value)" style="background:#1a1410; border:1px solid #3a3228; color:var(--paper); padding:0.3rem 0.6rem; font-family:'Barlow',sans-serif; font-size:0.8rem; border-radius:2px;">
-            <option value="new_arrivals" ${(s.listing_type||'new_arrivals')==='new_arrivals'?'selected':''}>New Arrivals</option>
-            <option value="featured" ${s.listing_type==='featured'?'selected':''}>Featured</option>
-          </select>
-        </div>
-        <div class="sub-detail-label">Submitter</div>
-          <div class="sub-detail-value">${esc(s.submitter)}</div>
-        </div>
-        <div>
-          <div class="sub-detail-label">Kindle Price</div>
-          <div class="sub-detail-value">${price}</div>
-        </div>
-        <div>
-          <div class="sub-detail-label">Amazon Link</div>
-          <div class="sub-detail-value"><a href="${esc(s.amazon_link)}" target="_blank" rel="noopener">${esc(s.amazon_link)}</a></div>
-        </div>
-        <div>
-          <div class="sub-detail-label">Email</div>
-          <div class="sub-detail-value"><a href="mailto:${esc(s.email)}">${esc(s.email)}</a></div>
-        </div>
+        <div><div class="sub-detail-label">Submitter</div><div class="sub-detail-value">${esc(s.submitter)}</div></div>
+        <div><div class="sub-detail-label">Email</div><div class="sub-detail-value"><a href="mailto:${esc(s.email)}">${esc(s.email)}</a></div></div>
+        <div><div class="sub-detail-label">Kindle Price</div><div class="sub-detail-value">${s.kindle_price || '—'}</div></div>
+        <div><div class="sub-detail-label">Amazon Link</div><div class="sub-detail-value"><a href="${esc(s.amazon_link)}" target="_blank">${esc(s.amazon_link)}</a></div></div>
       </div>
       <div class="sub-detail-label">Description</div>
       <div class="sub-desc-full">${esc(s.description)}</div>
@@ -703,10 +444,8 @@ function renderCard(s, status) {
 }
 
 function toggleCard(id) {
-  const body  = document.getElementById(`body-${id}`);
-  const arrow = document.getElementById(`arrow-${id}`);
-  body.classList.toggle('open');
-  arrow.classList.toggle('open');
+  document.getElementById(`body-${id}`).classList.toggle('open');
+  document.getElementById(`arrow-${id}`).classList.toggle('open');
 }
 
 function esc(str) {
@@ -714,196 +453,22 @@ function esc(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ══════════════════════════════════════════════════════
-// ACTIONS — simple direct Supabase + reload
-// ══════════════════════════════════════════════════════
-async function approve(id) {
-  console.log('Approving id:', id);
-  console.log('Submissions before:', JSON.stringify(submissions));
-  await setStatus(id, 'approved');
-  console.log('Submissions after:', JSON.stringify(submissions));
-  console.log('localStorage:', localStorage.getItem('bl_submissions'));
-  showToast('Book approved and now live on the site.', 'success');
-  setTimeout(() => location.reload(), 1000);
-}
-
-async function decline(id) {
-  console.log('Declining id:', id);
-  await setStatus(id, 'declined');
-  console.log('localStorage after:', localStorage.getItem('bl_submissions'));
-  showToast('Submission declined.', 'error');
-  setTimeout(() => location.reload(), 1000);
-}
-
-async function setPending(id) {
-  await setStatus(id, 'pending');
-  showToast('Moved back to pending.', 'success');
-  setTimeout(() => location.reload(), 1000);
-}
-
-async function setStatus(id, status) {
-  // 1. Save to localStorage immediately
-  const sub = submissions.find(s => String(s.id) === String(id));
-  if (sub) sub.status = status;
-  saveSubmissions();
-
-  // 2. Only sync to Supabase if ID is a number (real submission, not test)
-  if (isNaN(Number(id))) {
-    console.log('Local-only submission, skipping Supabase sync');
-    return;
-  }
-
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
-      method: 'PATCH',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ status: status, reviewed_at: new Date().toISOString() })
-    });
-    if (res.ok) {
-      console.log('Supabase updated successfully');
-    } else {
-      const err = await res.text();
-      console.warn('Supabase update failed:', err);
-    }
-  } catch(e) {
-    console.warn('Supabase sync error:', e);
-  }
-}
-
-async function deleteSubmission(id) {
-  if (!confirm('Permanently remove this submission? This cannot be undone.')) return;
-  submissions = submissions.filter(s => String(s.id) !== String(id));
-  saveSubmissions();
-  // Sync delete to Supabase if numeric ID
-  if (!isNaN(Number(id))) {
-    try {
-      await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
-        method: 'DELETE',
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Authorization': `Bearer ${SUPABASE_KEY}`,
-          'Prefer': 'return=minimal'
-        }
-      });
-    } catch(e) { console.warn('Supabase delete failed:', e); }
-  }
-  showToast('Submission removed.', 'error');
-  setTimeout(() => location.reload(), 1000);
-}
-
-async function updateListingType(id, listingType) {
-  try {
-    await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
-      method: 'PATCH',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ listing_type: listingType })
-    });
-    showToast(`Listing type updated to ${listingType === 'featured' ? 'Featured' : 'New Arrivals'}.`, 'success');
-  } catch(e) {
-    showToast('Error updating listing type.', 'error');
-  }
-}
-
-function animateOut(id) {
-  const card = document.getElementById(`card-${id}`);
-  if (card) { card.style.opacity = '0'; setTimeout(() => card.remove(), 300); }
-}
-
-// ══════════════════════════════════════════════════════
-// TABS
-// ══════════════════════════════════════════════════════
-function switchTab(name, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById(`tab-${name}`).classList.add('active');
-  if (name === 'listings') renderCurrentListings();
-  // Reload from Supabase when switching to approved or declined tabs
-  if (name === 'approved' || name === 'declined') reloadFromSupabase(name);
-}
-
-async function reloadFromSupabase(tab) {
-  if (!supabaseConfig) return;
-  try {
-    const data = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?status=eq.${tab}&order=reviewed_at.desc`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
-    });
-    const items = await data.json();
-    if (Array.isArray(items)) {
-      // Update local submissions array for this status
-      submissions = submissions.filter(s => s.status !== tab).concat(items);
-      if (tab === 'approved') renderList('list-approved', items, 'approved');
-      if (tab === 'declined') renderList('list-declined', items, 'declined');
-      updateStatsOnly();
-    }
-  } catch(e) {
-    console.warn('reloadFromSupabase error:', e);
-  }
-}
-
-// ══════════════════════════════════════════════════════
-// TOAST
-// ══════════════════════════════════════════════════════
-let toastTimer;
-function showToast(msg, type = 'success') {
-  const t   = document.getElementById('toast');
-  const ico = document.getElementById('toast-icon');
-  document.getElementById('toast-msg').textContent = msg;
-  t.className = `toast ${type} show`;
-  ico.innerHTML = type === 'success'
-    ? '<polyline points="20 6 9 17 4 12"/>'
-    : '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>';
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-
-// ══════════════════════════════════════════════════════
-// CURRENT LISTINGS (hardcoded books on homepage)
-// ══════════════════════════════════════════════════════
-const HARDCODED_BOOKS = [
-  { id: 'hc-1', title: 'The Food Fix', author: 'Dr Marcus Hawkins', genre: 'Health & Nutrition', type: 'Featured', amazon: 'https://www.amazon.com/dp/B0GYDXXVQC' },
-  { id: 'hc-2', title: "Hana's Island", author: 'Julian Hill', genre: 'Fiction', type: 'Featured', amazon: 'https://www.amazon.com/dp/B0GSZHMT1M' },
-  { id: 'hc-3', title: 'Metabolical', author: 'Robert Lustig, MD', genre: 'Nutrition', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B08F7S58JY' },
-  { id: 'hc-4', title: 'The Case Against Sugar', author: 'Gary Taubes', genre: 'Health', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B01M33BP8B' },
-  { id: 'hc-5', title: 'The Obesity Code', author: 'Jason Fung, MD', genre: 'Science', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B01C6D0LCK' },
-  { id: 'hc-6', title: 'When Breath Becomes Air', author: 'Paul Kalanithi', genre: 'Memoir', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B00XSSYR50' },
-  { id: 'hc-7', title: 'The Diabetes Code', author: 'Jason Fung, MD', genre: 'Health', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B0795BLS8D' },
-  { id: 'hc-8', title: 'Normal People', author: 'Sally Rooney', genre: 'Fiction', type: 'New Arrivals', amazon: 'https://www.amazon.com/dp/B07FS25XTW' },
-];
-
-function renderCurrentListings() {
+// ══ CURRENT LISTINGS ══
+function renderListings() {
   const hidden = JSON.parse(localStorage.getItem('bl_hidden_books') || '[]');
   const container = document.getElementById('current-listings-list');
-  if (!container) return;
-
   container.innerHTML = HARDCODED_BOOKS.map(b => {
     const isHidden = hidden.includes(b.id);
-    return `
-    <div class="listing-card" id="lc-${b.id}" style="${isHidden ? 'opacity:0.4;' : ''}">
-      <div class="listing-card-info">
+    return `<div class="listing-card" style="${isHidden ? 'opacity:0.4' : ''}">
+      <div>
         <div class="listing-card-title">${b.title}</div>
-        <div class="listing-card-meta">${b.author} · ${b.genre} · ${b.type} ${isHidden ? '· <span style="color:#e74c3c;">Hidden (remove from HTML to fully delete)</span>' : ''}</div>
+        <div class="listing-card-meta">${b.author} · ${b.genre} · ${b.type}${isHidden ? ' · Flagged for removal' : ''}</div>
       </div>
       <div class="listing-card-actions">
-        <a href="${b.amazon}" target="_blank" class="btn-undo" style="text-decoration:none; padding:0.4rem 0.8rem;">View ↗</a>
+        <a href="${b.amazon}" target="_blank" class="btn-undo" style="text-decoration:none;padding:.4rem .8rem">View ↗</a>
         ${isHidden
           ? `<button class="btn-approve" onclick="unhideBook('${b.id}')">Restore</button>`
-          : `<button class="btn-delete" onclick="hideBook('${b.id}')">Remove</button>`
-        }
+          : `<button class="btn-delete" onclick="hideBook('${b.id}')">Remove</button>`}
       </div>
     </div>`;
   }).join('');
@@ -911,53 +476,68 @@ function renderCurrentListings() {
 
 function hideBook(id) {
   const book = HARDCODED_BOOKS.find(b => b.id === id);
-  if (!confirm(`Remove "${book.title}" from the site? You will also need to delete it from index.html and re-upload to Netlify to fully remove it.`)) return;
+  if (!confirm(`Flag "${book.title}" for removal? You will need to ask Claude to remove it from index.html.`)) return;
   const hidden = JSON.parse(localStorage.getItem('bl_hidden_books') || '[]');
   if (!hidden.includes(id)) hidden.push(id);
   localStorage.setItem('bl_hidden_books', JSON.stringify(hidden));
-  renderCurrentListings();
-  showToast(`"${book.title}" marked for removal. Remember to delete it from index.html and re-upload.`, 'error');
+  renderListings();
+  showToast(`"${book.title}" flagged. Ask Claude to remove it from index.html.`, 'error');
 }
 
 function unhideBook(id) {
   const hidden = JSON.parse(localStorage.getItem('bl_hidden_books') || '[]');
   localStorage.setItem('bl_hidden_books', JSON.stringify(hidden.filter(h => h !== id)));
-  renderCurrentListings();
+  renderListings();
   showToast('Book restored.', 'success');
 }
 
-// ══════════════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════════════
-function init() {
-  loadSupabaseConfig();
-  renderCurrentListings();
-  firstLoad = true;
-  // Pre-fill saved Supabase settings
-  if (supabaseConfig) {
-    document.getElementById('sb-url').value = supabaseConfig.url || '';
-    document.getElementById('sb-key').value = supabaseConfig.key || '';
-  }
-  loadSubmissions();
-
-}
-
-// Global event delegation - fires regardless of login state
-document.addEventListener('click', function(e) {
-  const btn = e.target.closest('button[data-action]');
-  if (!btn) return;
-  e.stopPropagation();
-  const id = btn.dataset.id;
-  const action = btn.dataset.action;
-  if (!id || !action) return;
-  console.log('Button clicked:', action, id);
-  if (action === 'approve') approve(id);
-  else if (action === 'decline') decline(id);
-  else if (action === 'pending') setPending(id);
-  else if (action === 'delete') deleteSubmission(id);
+// ══ SETTINGS ══
+document.getElementById('changePassBtn').addEventListener('click', () => {
+  const curr = document.getElementById('curr-pass').value;
+  const newP = document.getElementById('new-pass').value;
+  const conf = document.getElementById('confirm-pass').value;
+  if (curr !== getPassword()) { showToast('Current password incorrect.', 'error'); return; }
+  if (newP.length < 8) { showToast('Password must be at least 8 characters.', 'error'); return; }
+  if (newP !== conf) { showToast('Passwords do not match.', 'error'); return; }
+  localStorage.setItem('bl_admin_password', newP);
+  showToast('Password updated successfully.', 'success');
 });
 
-// Auto-login if session still valid
+document.getElementById('testSubBtn').addEventListener('click', () => {
+  const test = {
+    id: 'local-' + Date.now(),
+    book_title: 'The Art of Low-Carb Living',
+    author: 'Dr Test Author',
+    genre: 'Health & Medicine',
+    kindle_price: '9.99',
+    description: 'A practical guide to therapeutic carbohydrate restriction.',
+    amazon_link: 'https://www.amazon.com/dp/TESTBOOK123',
+    submitter: 'Test Submitter',
+    email: 'test@example.com',
+    status: 'pending',
+    listing_type: 'new_arrivals',
+    submitted_at: new Date().toISOString()
+  };
+  submissions.unshift(test);
+  saveSubmissions();
+  renderAll();
+  showToast('Test submission added.', 'success');
+});
+
+// ══ TOAST ══
+let toastTimer;
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.className = `toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ══ INIT ══
+function init() { loadSubmissions(); }
+
+// Auto-login
 if (localStorage.getItem('bl_admin_auth') === '1') {
   document.getElementById('loginScreen').style.display = 'none';
   document.getElementById('adminShell').style.display = 'flex';
