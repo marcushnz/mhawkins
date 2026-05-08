@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_35.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_36.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -742,7 +742,7 @@ async function setPending(id) {
 
 async function setStatus(id, status) {
   // 1. Save to localStorage immediately
-  const sub = submissions.find(s => s.id === id);
+  const sub = submissions.find(s => String(s.id) === String(id));
   if (sub) sub.status = status;
   saveSubmissions();
 
@@ -776,7 +776,7 @@ async function setStatus(id, status) {
 
 async function deleteSubmission(id) {
   if (!confirm('Permanently remove this submission? This cannot be undone.')) return;
-  submissions = submissions.filter(s => s.id !== id);
+  submissions = submissions.filter(s => String(s.id) !== String(id));
   saveSubmissions();
   // Sync delete to Supabase if numeric ID
   if (!isNaN(Number(id))) {
