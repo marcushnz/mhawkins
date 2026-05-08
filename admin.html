@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_39.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_42.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -301,6 +301,7 @@ async function loadSubmissions() {
 
 // ══ ACTIONS ══
 function doApprove(id) {
+  alert('Approving: ' + id);
   const sub = submissions.find(s => String(s.id) === String(id));
   if (sub) { sub.status = 'approved'; saveSubmissions(); }
   // Sync to Supabase if numeric ID
