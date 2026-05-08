@@ -744,8 +744,8 @@ function esc(str) {
 // ACTIONS
 // ══════════════════════════════════════════════════════
 async function approve(id) {
-  await updateStatus(id, 'approved');
   animateOut(id);
+  await updateStatus(id, 'approved');
   showToast('Book approved and now live on the site.', 'success');
 }
 
@@ -768,17 +768,18 @@ function animateOut(id) {
 
 async function deleteSubmission(id) {
   if (!confirm('Are you sure you want to permanently remove this submission? This cannot be undone.')) return;
+  animateOut(id);
   if (supabaseConfig) {
     await sbFetch(`bl_submissions?id=eq.${id}`, {
       method: 'DELETE',
       prefer: 'return=minimal'
     });
-    await loadSubmissions();
+    submissions = submissions.filter(s => s.id !== id);
   } else {
     submissions = submissions.filter(s => s.id !== id);
     saveSubmissions();
-    renderAll();
   }
+  updateStatsOnly();
   showToast('Submission removed.', 'error');
 }
 
@@ -799,13 +800,20 @@ async function updateListingType(id, listingType) {
 }
 
 async function decline(id) {
-  await updateStatus(id, 'declined');
   animateOut(id);
+  await updateStatus(id, 'declined');
   showToast('Submission declined.', 'error');
 }
 
 async function setPending(id) {
+  animateOut(id);
   await updateStatus(id, 'pending');
+  // Re-render pending list to show the restored submission
+  setTimeout(() => {
+    const pending = submissions.filter(s => s.status === 'pending');
+    renderList('list-pending', pending, 'pending');
+    updateStatsOnly();
+  }, 800);
   showToast('Submission moved back to pending.', 'success');
 }
 
