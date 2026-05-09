@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit a Book — Book Launch</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1410;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #c0392b;
+    --gold: #b5892a;
+    --muted: #7a6f62;
+    --rule: #ccc4b4;
+    --green: #1e7e34;
+    --stripe: #635bff;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  header {
+    border-bottom: 3px double var(--ink);
+    padding: 0 2rem;
+    background: var(--paper);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .masthead-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 0;
+  }
+  .logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+  .logo-main { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; letter-spacing: -0.02em; color: var(--ink); }
+  .logo-sub  { font-family: 'Barlow', sans-serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+  .back-link {
+    font-family: 'Barlow', sans-serif; font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+    text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .page-hero {
+    background: var(--ink); color: var(--paper);
+    padding: 3rem 2rem 2.5rem; text-align: center;
+  }
+  .page-eyebrow { font-family: 'Barlow', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+  .page-title   { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 900; font-style: italic; color: var(--paper); margin-bottom: 0.6rem; }
+  .page-desc    { font-family: 'Barlow', sans-serif; font-weight: 300; font-size: 0.92rem; color: rgba(245,240,232,0.65); max-width: 480px; margin: 0 auto; }
+
+  .page-wrap {
+    max-width: 1100px; margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 3.5rem;
+    align-items: start;
+  }
+
+  /* Steps */
+  .steps { display: flex; align-items: center; margin-bottom: 2.5rem; }
+  .step {
+    display: flex; align-items: center; gap: 0.6rem;
+    font-family: 'Barlow', sans-serif; font-size: 0.75rem;
+    font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+  }
+  .step.active { color: var(--ink); }
+  .step.done   { color: var(--green); }
+  .step-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 700;
+    border: 2px solid var(--rule); color: var(--muted); flex-shrink: 0;
+  }
+  .step.active .step-num { border-color: var(--ink); background: var(--ink); color: var(--paper); }
+  .step.done   .step-num { border-color: var(--green); background: var(--green); color: #fff; }
+  .step-connector { flex: 1; height: 1px; background: var(--rule); margin: 0 0.8rem; }
+
+  /* Panels */
+  .form-panel { display: none; }
+  .form-panel.active { display: block; }
+  .panel-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .panel-sub   { font-family: 'Barlow', sans-serif; font-size: 0.82rem; color: var(--muted); margin-bottom: 2rem; }
+
+  /* Fields */
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field { margin-bottom: 1.2rem; }
+  label {
+    display: block; font-family: 'Barlow', sans-serif; font-size: 0.72rem;
+    font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 0.4rem;
+  }
+  label .required { color: var(--accent); margin-left: 2px; }
+  label .optional { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 0.7rem; margin-left: 4px; }
+
+  input[type="text"], input[type="email"], input[type="url"], select, textarea {
+    width: 100%; background: #fff;
+    border: 1px solid var(--rule); border-radius: 2px;
+    padding: 0.65rem 0.85rem;
+    font-family: 'Barlow', sans-serif; font-size: 0.88rem;
+    color: var(--ink); outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s; appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--ink); box-shadow: 0 0 0 3px rgba(26,20,16,0.07);
+  }
+  input.error, select.error, textarea.error {
+    border-color: var(--accent); box-shadow: 0 0 0 3px rgba(192,57,43,0.08);
+  }
+  textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a6f62' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.85rem center; padding-right: 2rem;
+  }
+  .field-hint  { font-family: 'Barlow', sans-serif; font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; }
+  .field-error { font-family: 'Barlow', sans-serif; font-size: 0.7rem; color: var(--accent); margin-top: 0.3rem; display: none; }
+
+  .policy-check {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    background: var(--cream); border: 1px solid var(--rule);
+    padding: 1rem 1.1rem; margin-bottom: 0.5rem;
+  }
+  .policy-check input[type="checkbox"] {
+    width: 18px; height: 18px; margin-top: 3px;
+    flex-shrink: 0; accent-color: var(--accent); cursor: pointer;
+  }
+  .policy-check label {
+    font-family: 'Barlow', sans-serif; font-size: 0.82rem;
+    font-weight: 400; letter-spacing: 0; text-transform: none;
+    color: #2c2520; margin-bottom: 0; cursor: pointer; line-height: 1.55;
+  }
+  .policy-check a { color: var(--accent); }
+
+  /* Review panel */
+  .summary-box {
+    background: var(--cream); border: 1px solid var(--rule);
+    padding: 1.8rem; margin-bottom: 1.5rem;
+  }
+  .summary-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 1rem; margin-bottom: 1.2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .summary-box-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
+  .pay-amount { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; }
+  .pay-once { font-family: 'Barlow', sans-serif; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; text-align: right; }
+
+  .summary-rows { display: flex; flex-direction: column; gap: 0.6rem; }
+  .summary-row { display: flex; justify-content: space-between; align-items: baseline; font-family: 'Barlow', sans-serif; font-size: 0.82rem; gap: 1rem; }
+  .summary-label { color: var(--muted); flex-shrink: 0; }
+  .summary-value { color: var(--ink); font-weight: 500; text-align: right; word-break: break-all; }
+
+  .stripe-note-box {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    background: #f0f0ff; border: 1px solid #d0ceff;
+    padding: 0.9rem 1rem; margin-bottom: 1.5rem;
+    font-family: 'Barlow', sans-serif; font-size: 0.8rem;
+    color: #3d3a8c; line-height: 1.55;
+  }
+  .stripe-note-box svg { flex-shrink: 0; margin-top: 2px; color: #635bff; }
+
+  /* Buttons */
+  .btn-primary {
+    width: 100%; background: var(--ink); color: var(--paper);
+    border: none; padding: 0.9rem 1.5rem;
+    font-family: 'Barlow', sans-serif; font-size: 0.82rem;
+    font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; border-radius: 2px;
+    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-pay { background: var(--stripe) !important; }
+  .btn-pay:hover { background: #4f46d4 !important; }
+  .btn-back {
+    background: none; border: 1px solid var(--rule); color: var(--muted);
+    padding: 0.7rem 1.2rem;
+    font-family: 'Barlow', sans-serif; font-size: 0.75rem;
+    font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; border-radius: 2px; transition: all 0.2s;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .btn-back:hover { border-color: var(--ink); color: var(--ink); }
+  .btn-row { display: flex; gap: 0.75rem; align-items: center; }
+
+  /* Sidebar */
+  .sidebar { position: sticky; top: 90px; }
+  .price-badge {
+    background: var(--ink); color: var(--paper);
+    padding: 1.4rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  .price-badge-label  { font-family: 'Barlow', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245,240,232,0.6); }
+  .price-badge-note   { font-family: 'Barlow', sans-serif; font-size: 0.65rem; color: rgba(245,240,232,0.5); margin-top: 2px; }
+  .price-badge-amount { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; }
+  .sidebar-card { background: #fff; border: 1px solid var(--rule); border-top: none; padding: 1.5rem; margin-bottom: 0; }
+  .sidebar-card + .sidebar-card { border-top: none; }
+  .sidebar-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--rule); }
+  .sidebar-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .sidebar-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-family: 'Barlow', sans-serif; font-size: 0.82rem; color: #2c2520; line-height: 1.5; }
+  .sidebar-list li svg { color: var(--green); flex-shrink: 0; margin-top: 2px; }
+  .sidebar-gap { border-top: 1px solid var(--rule); }
+  .sidebar-policy { font-family: 'Barlow', sans-serif; font-size: 0.75rem; color: var(--muted); line-height: 1.7; }
+  .sidebar-policy a { color: var(--accent); }
+
+  footer { border-top: 3px double var(--ink); padding: 1.5rem 2rem; margin-top: 0; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .footer-brand { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.95rem; }
+  .footer-links { display: flex; gap: 1.2rem; }
+  .footer-links a { font-family: 'Barlow', sans-serif; font-size: 0.72rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--ink); }
+
+  @media (max-width: 760px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .field-row { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="masthead-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-main">Book Launch</span>
+      <span class="logo-sub">New Titles Worth Reading</span>
+    </a>
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Books
+    </a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <p class="page-eyebrow">Join the directory</p>
+  <h1 class="page-title">Submit Your Book</h1>
+  <p class="page-desc">Fill in your details, review your submission, then pay US$5 securely via Stripe.</p>
+</section>
+
+<div class="page-wrap">
+  <div>
+
+    <!-- STEPS -->
+    <div class="steps">
+      <div class="step active" id="step-ind-1">
+        <div class="step-num" id="step-num-1">1</div>
+        Book Details
+      </div>
+      <div class="step-connector"></div>
+      <div class="step" id="step-ind-2">
+        <div class="step-num" id="step-num-2">2</div>
+        Review &amp; Pay
+      </div>
+    </div>
+
+    <!-- PANEL 1: Book Details -->
+    <div class="form-panel active" id="panel-1">
+      <h2 class="panel-title">Tell us about your book</h2>
+      <p class="panel-sub">All fields marked * are required. Your listing will appear exactly as entered.</p>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="book-title">Book Title <span class="required">*</span></label>
+          <input type="text" id="book-title" placeholder="e.g. The Food Fix" />
+          <div class="field-error" id="err-title">Please enter the book title.</div>
+        </div>
+        <div class="field">
+          <label for="book-author">Author Name <span class="required">*</span></label>
+          <input type="text" id="book-author" placeholder="e.g. Dr Marcus Hawkins" />
+          <div class="field-error" id="err-author">Please enter the author name.</div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="book-genre">Genre / Category <span class="required">*</span></label>
+          <select id="book-genre">
+            <option value="">Select a category…</option>
+            <option>Health &amp; Medicine</option>
+            <option>Nutrition</option>
+            <option>Science</option>
+            <option>Memoir</option>
+            <option>Fiction</option>
+            <option>Business</option>
+            <option>History</option>
+            <option>Self-Help</option>
+            <option>Other</option>
+          </select>
+          <div class="field-error" id="err-genre">Please select a category.</div>
+        </div>
+        <div class="field">
+          <label for="book-price">Kindle Price (USD) <span class="optional">(optional)</span></label>
+          <input type="text" id="book-price" placeholder="e.g. 9.99" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="book-desc">Short Description <span class="required">*</span></label>
+        <textarea id="book-desc" placeholder="2–4 sentences describing what the book is about and why readers should care."></textarea>
+        <div class="field-hint">Aim for 40–80 words. This appears directly on your listing.</div>
+        <div class="field-error" id="err-desc">Please add a short description.</div>
+      </div>
+
+      <div class="field">
+        <label for="book-amazon">Amazon / Kindle Link <span class="required">*</span></label>
+        <input type="url" id="book-amazon" placeholder="https://www.amazon.com/dp/XXXXXXXXXX" />
+        <div class="field-hint">Paste the full Amazon product URL for your Kindle edition.</div>
+        <div class="field-error" id="err-amazon">Please enter a valid Amazon URL.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="sub-name">Your Name <span class="required">*</span></label>
+          <input type="text" id="sub-name" placeholder="Your full name" />
+          <div class="field-error" id="err-name">Please enter your name.</div>
+        </div>
+        <div class="field">
+          <label for="sub-email">Your Email <span class="required">*</span></label>
+          <input type="email" id="sub-email" placeholder="you@example.com" />
+          <div class="field-hint">We'll confirm your listing here.</div>
+          <div class="field-error" id="err-email">Please enter a valid email address.</div>
+        </div>
+      </div>
+
+      <div class="policy-check">
+        <input type="checkbox" id="policy-agree" />
+        <label for="policy-agree">
+          I confirm this book does not contain hate speech, explicit sexual content, extreme violence, misinformation, political propaganda, content targeting minors, or plagiarised / AI-generated material, as defined in the <a href="policy.html" target="_blank">Book Launch Content Policy</a>. I understand my submission may be declined and the listing fee is non-refundable.
+        </label>
+      </div>
+      <div class="field-error" id="err-policy" style="margin-bottom:1.2rem;">You must agree to the Content Policy to continue.</div>
+
+      <button class="btn-primary" onclick="goToReview()">
+        Review &amp; Pay
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- PANEL 2: Review & Pay -->
+    <div class="form-panel" id="panel-2">
+      <h2 class="panel-title">Review your submission</h2>
+      <p class="panel-sub">Everything look right? Click Pay to open Stripe's secure checkout.</p>
+
+      <div class="summary-box">
+        <div class="summary-header">
+          <div class="summary-box-title">Submission Summary</div>
+          <div>
+            <div class="pay-amount">US$5</div>
+            <span class="pay-once">One-time · No renewal</span>
+          </div>
+        </div>
+        <div class="summary-rows">
+          <div class="summary-row"><span class="summary-label">Book title</span><span class="summary-value" id="rev-title">—</span></div>
+          <div class="summary-row"><span class="summary-label">Author</span><span class="summary-value" id="rev-author">—</span></div>
+          <div class="summary-row"><span class="summary-label">Category</span><span class="summary-value" id="rev-genre">—</span></div>
+          <div class="summary-row"><span class="summary-label">Kindle price</span><span class="summary-value" id="rev-price">—</span></div>
+          <div class="summary-row"><span class="summary-label">Amazon link</span><span class="summary-value" id="rev-amazon">—</span></div>
+          <div class="summary-row"><span class="summary-label">Your email</span><span class="summary-value" id="rev-email">—</span></div>
+        </div>
+      </div>
+
+      <div class="stripe-note-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Clicking "Pay US$5" opens Stripe's secure checkout in a new tab. Your card details go directly to Stripe — we never see them. Once payment is complete, your submission lands in our inbox.
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-back" onclick="goBack()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Edit Details
+        </button>
+        <button class="btn-primary btn-pay" onclick="goToStripe()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          Pay US$5 via Stripe
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="price-badge">
+      <div>
+        <div class="price-badge-label">Listing fee</div>
+        <div class="price-badge-note">One-time · No renewal ever</div>
+      </div>
+      <div class="price-badge-amount">US$5</div>
+    </div>
+    <div class="sidebar-card">
+      <div class="sidebar-title">What you get</div>
+      <ul class="sidebar-list">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Permanent listing in the Book Launch directory</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct Kindle / Amazon link on your card</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Genre categorisation and filtering</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Editorial review within 5 business days</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Email confirmation on approval</li>
+      </ul>
+    </div>
+    <div class="sidebar-card sidebar-gap">
+      <div class="sidebar-title">Good to know</div>
+      <p class="sidebar-policy">
+        All books are reviewed against our <a href="policy.html">Content Policy</a>. Submission does not guarantee listing.<br><br>
+        The US$5 fee is <strong>non-refundable</strong> regardless of outcome.<br><br>
+        Payment is handled securely by <strong>Stripe</strong>. We never see your card details.<br><br>
+        Questions? <a href="mailto:hello@booklaunch.co.nz">Contact us</a> before submitting.
+      </p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">Book Launch</span>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="policy.html">Content Policy</a>
+      <a href="submit.html">Submit a Book</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const STRIPE_LINK   = 'https://buy.stripe.com/14A6oG2KlbPdddM8tl9Ve00';
+  const FORMSPREE_URL = 'https://formspree.io/f/mzdovazz';
+  const SUPABASE_URL  = 'https://spuacitiknlqwajwgids.supabase.co';
+  const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNwdWFjaXRpa25scXdhandnaWRzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwOTk2OTIsImV4cCI6MjA5MzY3NTY5Mn0.857idQfYIRC_vFugvjF1ebP0dtI9pdtHHPjTilUtZxk';
+
+  function validate() {
+    let valid = true;
+    const fields = [
+      { id: 'book-title',  err: 'err-title',  check: v => v.trim().length > 0 },
+      { id: 'book-author', err: 'err-author', check: v => v.trim().length > 0 },
+      { id: 'book-genre',  err: 'err-genre',  check: v => v !== '' },
+      { id: 'book-desc',   err: 'err-desc',   check: v => v.trim().length > 20 },
+      { id: 'book-amazon', err: 'err-amazon', check: v => v.startsWith('https://') && v.toLowerCase().includes('amazon') },
+      { id: 'sub-name',    err: 'err-name',   check: v => v.trim().length > 0 },
+      { id: 'sub-email',   err: 'err-email',  check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    ];
+    fields.forEach(({ id, err, check }) => {
+      const el = document.getElementById(id);
+      const ok = check(el.value);
+      el.classList.toggle('error', !ok);
+      document.getElementById(err).style.display = ok ? 'none' : 'block';
+      if (!ok) valid = false;
+    });
+    const agreed = document.getElementById('policy-agree').checked;
+    document.getElementById('err-policy').style.display = agreed ? 'none' : 'block';
+    if (!agreed) valid = false;
+    return valid;
+  }
+
+  function setStep(n) {
+    [1, 2].forEach(i => {
+      document.getElementById(`panel-${i}`).classList.toggle('active', i === n);
+      const ind = document.getElementById(`step-ind-${i}`);
+      const num = document.getElementById(`step-num-${i}`);
+      ind.classList.remove('active', 'done');
+      if (i < n) {
+        ind.classList.add('done');
+        num.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+      } else if (i === n) {
+        ind.classList.add('active');
+        num.textContent = i;
+      } else {
+        num.textContent = i;
+      }
+    });
+  }
+
+  function goToReview() {
+    if (!validate()) return;
+    const price = document.getElementById('book-price').value.trim();
+    document.getElementById('rev-title').textContent  = document.getElementById('book-title').value.trim();
+    document.getElementById('rev-author').textContent = document.getElementById('book-author').value.trim();
+    document.getElementById('rev-genre').textContent  = document.getElementById('book-genre').value;
+    document.getElementById('rev-price').textContent  = price ? `$${price}` : 'Not specified';
+    document.getElementById('rev-amazon').textContent = document.getElementById('book-amazon').value.trim();
+    document.getElementById('rev-email').textContent  = document.getElementById('sub-email').value.trim();
+    setStep(2);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goBack() {
+    setStep(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function saveToAdminQueue(data) {
+    // Save submission to localStorage so admin.html can see it
+    const existing = JSON.parse(localStorage.getItem('bl_submissions') || '[]');
+    const submission = {
+      ...data,
+      id: 'sub-' + Date.now() + '-' + Math.random().toString(36).slice(2,7),
+      status: 'pending',
+      submitted_at: new Date().toISOString()
+    };
+    existing.unshift(submission);
+    localStorage.setItem('bl_submissions', JSON.stringify(existing));
+  }
+
+  async function saveToSupabase(data) {
+    try {
+      const submission = {
+        ...data,
+        status: 'pending',
+        submitted_at: new Date().toISOString()
+      };
+      const res = await fetch(SUPABASE_URL + '/rest/v1/bl_submissions', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(submission)
+      });
+      if (!res.ok) console.warn('Supabase error:', res.status, await res.text());
+    } catch(e) { console.warn('Supabase save error:', e); }
+  }
+
+  async function goToStripe() {
+    const btn = document.querySelector('.btn-pay');
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const data = {
+      book_title:   document.getElementById('book-title').value.trim(),
+      author:       document.getElementById('book-author').value.trim(),
+      genre:        document.getElementById('book-genre').value,
+      kindle_price: document.getElementById('book-price').value.trim() || 'Not specified',
+      description:  document.getElementById('book-desc').value.trim(),
+      amazon_link:  document.getElementById('book-amazon').value.trim(),
+      submitter:    document.getElementById('sub-name').value.trim(),
+      email:        document.getElementById('sub-email').value.trim(),
+    };
+
+    // 1. Save to admin queue (localStorage + Supabase if configured)
+    saveToAdminQueue(data);
+    await saveToSupabase(data);
+
+    // 2. Send email notification via Formspree
+    try {
+      await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (e) {
+      console.warn('Formspree error:', e);
+    }
+
+    // 3. Open Stripe checkout with email pre-filled
+    const stripeURL = STRIPE_LINK + '?prefilled_email=' + encodeURIComponent(data.email);
+    window.open(stripeURL, '_blank');
+
+    btn.disabled = false;
+    btn.innerHTML = originalHTML;
+  }
+</script>
+</body>
+</html>
