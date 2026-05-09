@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_56.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_57.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -143,7 +143,7 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
     <div class="admin-header-inner">
       <div class="admin-logo">Book Launch <span>Admin</span></div>
       <nav style="display:flex;align-items:center;gap:1.5rem">
-        <a href="https://bold-frog-0f9f.marcushnz.workers.dev/" target="_blank" style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#a09080;text-decoration:none">View Site ↗</a>
+        <a href="https://booklaunch.co.nz/" target="_blank" style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#a09080;text-decoration:none">View Site ↗</a>
         <button class="logout-btn" id="logoutBtn">Log Out</button>
       </nav>
     </div>
@@ -384,9 +384,7 @@ function doLogin() {
 
 document.getElementById('logoutBtn').addEventListener('click', function() {
   localStorage.removeItem('bl_admin_auth');
-  document.getElementById('adminShell').style.display = 'none';
-  document.getElementById('loginScreen').style.display = 'flex';
-  document.getElementById('adminPass').value = '';
+  window.location.href = 'https://booklaunch.co.nz/admin.html';
 });
 
 // ══ TABS ══
