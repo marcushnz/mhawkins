@@ -943,8 +943,8 @@
     if (!books.length) return;
 
     // Separate featured and new arrivals
-    const featured = books.filter(b => (b.listing_type || 'new_arrivals') === 'featured');
-    const newArrivals = books.filter(b => (b.listing_type || 'new_arrivals') !== 'featured');
+    const featured = books.filter(b => b.listing_type === 'featured');
+    const newArrivals = books.filter(b => b.listing_type !== 'featured'); // includes null/new_arrivals
 
     // Sort featured by submitted_at descending (newest first)
     // Keep only the 5 most recent - oldest drops off automatically
