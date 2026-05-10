@@ -308,27 +308,9 @@ function syncToSupabase(id, data, method='PATCH') {
 }
 
 function doApprove(id) {
-  console.log('Approving:', id);
   const sub = submissions.find(s => String(s.id) === String(id));
   if (sub) { sub.status = 'approved'; saveSubmissions(); }
-  // Direct Supabase call with full logging
-  fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?id=eq.${id}`, {
-    method: 'PATCH',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'return=minimal'
-    },
-    body: JSON.stringify({ status: 'approved' })
-  }).then(r => {
-    console.log('Supabase PATCH status:', r.status);
-    return r.text();
-  }).then(t => {
-    console.log('Supabase PATCH response:', t);
-  }).catch(e => {
-    console.error('Supabase PATCH error:', e);
-  });
+  syncToSupabase(id, { status: 'approved' });
   renderAll();
   showToast('Book approved and now live on the site.', 'success');
 }
@@ -438,10 +420,11 @@ function renderCard(s, status) {
     : `<span class="sub-tag tag-declined">✕ Declined</span>`;
 
   const listingType = s.listing_type || 'new_arrivals';
-  const listingSelect = `<select class="listing-select" onchange="doListingType('${s.id}', this.value)">
-    <option value="new_arrivals" ${listingType === 'new_arrivals' ? 'selected' : ''}>New Arrivals</option>
-    <option value="featured" ${listingType === 'featured' ? 'selected' : ''}>Featured</option>
-  </select>`;
+  // Only show listing type selector for approved books
+  const listingSelect = status === 'approved' ? `<select class="listing-select" onchange="doListingType('${s.id}', this.value)">
+    <option value="new_arrivals" ${listingType === 'new_arrivals' ? 'selected' : ''}>→ New Arrivals</option>
+    <option value="featured" ${listingType === 'featured' ? 'selected' : ''}>★ Featured</option>
+  </select>` : `<span class="sub-tag tag-genre" style="font-size:0.6rem">${listingType === 'featured' ? '★ Featured' : 'New Arrivals'}</span>`;
 
   const actions = status === 'pending'
     ? `<button class="btn-approve" onclick="doApprove('${s.id}')">✓ Approve</button>
