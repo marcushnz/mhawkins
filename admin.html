@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_63.html -->
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_64.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -176,7 +176,10 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
           <span class="sub-tag tag-genre">History</span>
           <span class="sub-tag tag-pending">Pending Review</span>
           <span class="sub-tag tag-date">10 May 2026</span>
-          <span class="sub-tag tag-genre" style="font-size:0.6rem">★ Featured</span>
+          <select class="listing-select" onchange="doListingType(&#39;sub-1778367752776-j192b&#39;, this.value)">
+    <option value="new_arrivals">→ New Arrivals</option>
+    <option value="featured" selected="">★ Featured</option>
+  </select>
         </div>
       </div>
       <div class="sub-card-actions"><button class="btn-approve" onclick="doApprove(&#39;sub-1778367752776-j192b&#39;)">✓ Approve</button>
@@ -431,8 +434,17 @@ function syncToSupabase(id, data, method='PATCH') {
 
 function doApprove(id) {
   const sub = submissions.find(s => String(s.id) === String(id));
-  if (sub) { sub.status = 'approved'; saveSubmissions(); }
-  syncToSupabase(id, { status: 'approved' });
+  if (sub) {
+    sub.status = 'approved';
+    saveSubmissions();
+    // Send both status and listing_type to Supabase
+    syncToSupabase(id, {
+      status: 'approved',
+      listing_type: sub.listing_type || 'new_arrivals'
+    });
+  } else {
+    syncToSupabase(id, { status: 'approved' });
+  }
   renderAll();
   showToast('Book approved and now live on the site.', 'success');
 }
@@ -542,11 +554,10 @@ function renderCard(s, status) {
     : `<span class="sub-tag tag-declined">✕ Declined</span>`;
 
   const listingType = s.listing_type || 'new_arrivals';
-  // Only show listing type selector for approved books
-  const listingSelect = status === 'approved' ? `<select class="listing-select" onchange="doListingType('${s.id}', this.value)">
+  const listingSelect = `<select class="listing-select" onchange="doListingType('${s.id}', this.value)">
     <option value="new_arrivals" ${listingType === 'new_arrivals' ? 'selected' : ''}>→ New Arrivals</option>
     <option value="featured" ${listingType === 'featured' ? 'selected' : ''}>★ Featured</option>
-  </select>` : `<span class="sub-tag tag-genre" style="font-size:0.6rem">${listingType === 'featured' ? '★ Featured' : 'New Arrivals'}</span>`;
+  </select>`;
 
   const actions = status === 'pending'
     ? `<button class="btn-approve" onclick="doApprove('${s.id}')">✓ Approve</button>
