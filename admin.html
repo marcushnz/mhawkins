@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0046)file:///C:/Users/marcu/Downloads/admin_63.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin — Book Launch</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="./admin_files/css2" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--ink:#1a1410;--paper:#f5f0e8;--cream:#ede8dc;--accent:#c0392b;--gold:#b5892a;--muted:#7a6f62;--rule:#ccc4b4;--green:#1a7a34;--bg:#1a1410;--card:#242018;--border:#3a3228}
@@ -126,24 +126,24 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
 <body>
 
 <!-- LOGIN -->
-<div class="login-wrap" id="loginScreen">
+<div class="login-wrap" id="loginScreen" style="display: none;">
   <div class="login-box">
     <div class="login-logo">Book Launch</div>
     <div class="login-sub">Admin Panel</div>
     <label class="login-label" for="adminPass">Password</label>
-    <input class="login-input" type="password" id="adminPass" placeholder="Enter admin password" />
+    <input class="login-input" type="password" id="adminPass" placeholder="Enter admin password">
     <button class="login-btn" id="loginBtn">Sign In</button>
     <div class="login-error" id="loginError">Incorrect password. Please try again.</div>
   </div>
 </div>
 
 <!-- ADMIN SHELL -->
-<div class="admin-shell" id="adminShell">
+<div class="admin-shell" id="adminShell" style="display: flex;">
   <header class="admin-header">
     <div class="admin-header-inner">
       <div class="admin-logo">Book Launch <span>Admin</span></div>
       <nav style="display:flex;align-items:center;gap:1.5rem">
-        <a href="https://booklaunch.co.nz" target="_blank" style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#a09080;text-decoration:none">View Site ↗</a>
+        <a href="https://booklaunch.co.nz/" target="_blank" style="font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#a09080;text-decoration:none">View Site ↗</a>
         <button class="logout-btn" id="logoutBtn">Log Out</button>
       </nav>
     </div>
@@ -151,8 +151,8 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
 
   <div class="tab-bar">
     <div class="tab-bar-inner">
-      <button class="tab-btn active" data-tab="pending">Pending <span class="badge" id="badge-pending">0</span></button>
-      <button class="tab-btn" data-tab="approved">Approved <span class="badge green" id="badge-approved">0</span></button>
+      <button class="tab-btn active" data-tab="pending">Pending <span class="badge" id="badge-pending">1</span></button>
+      <button class="tab-btn" data-tab="approved">Approved <span class="badge green" id="badge-approved">2</span></button>
       <button class="tab-btn" data-tab="declined">Declined <span class="badge muted" id="badge-declined">0</span></button>
       <button class="tab-btn" data-tab="listings">Current Listings</button>
       <button class="tab-btn" data-tab="settings">Settings</button>
@@ -161,15 +161,100 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
 
   <div class="admin-main">
     <div class="stats-row">
-      <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-val" id="stat-pending">0</div></div>
-      <div class="stat-card"><div class="stat-label">Approved</div><div class="stat-val" id="stat-approved">0</div></div>
+      <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-val" id="stat-pending">1</div></div>
+      <div class="stat-card"><div class="stat-label">Approved</div><div class="stat-val" id="stat-approved">2</div></div>
       <div class="stat-card"><div class="stat-label">Declined</div><div class="stat-val" id="stat-declined">0</div></div>
-      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val" id="stat-total">0</div></div>
+      <div class="stat-card"><div class="stat-label">Total</div><div class="stat-val" id="stat-total">3</div></div>
     </div>
 
-    <div class="tab-panel active" id="tab-pending"><div class="submissions-list" id="list-pending"></div></div>
-    <div class="tab-panel" id="tab-approved"><div class="submissions-list" id="list-approved"></div></div>
-    <div class="tab-panel" id="tab-declined"><div class="submissions-list" id="list-declined"></div></div>
+    <div class="tab-panel active" id="tab-pending"><div class="submissions-list" id="list-pending"><div class="sub-card" id="card-sub-1778367752776-j192b">
+    <div class="sub-card-header">
+      <div style="flex:1;min-width:0">
+        <div class="sub-book-title">Featured</div>
+        <div class="sub-book-author">by Marcus</div>
+        <div class="sub-meta">
+          <span class="sub-tag tag-genre">History</span>
+          <span class="sub-tag tag-pending">Pending Review</span>
+          <span class="sub-tag tag-date">10 May 2026</span>
+          <span class="sub-tag tag-genre" style="font-size:0.6rem">★ Featured</span>
+        </div>
+      </div>
+      <div class="sub-card-actions"><button class="btn-approve" onclick="doApprove(&#39;sub-1778367752776-j192b&#39;)">✓ Approve</button>
+       <button class="btn-decline" onclick="doDecline(&#39;sub-1778367752776-j192b&#39;)">✕ Decline</button>
+       <button class="btn-delete" onclick="doDelete(&#39;sub-1778367752776-j192b&#39;)" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button></div>
+      <svg onclick="toggleCard(&#39;sub-1778367752776-j192b&#39;)" class="expand-arrow" id="arrow-sub-1778367752776-j192b" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="sub-card-body" id="body-sub-1778367752776-j192b">
+      <div class="sub-detail-grid">
+        <div><div class="sub-detail-label">Submitter</div><div class="sub-detail-value">Marcus</div></div>
+        <div><div class="sub-detail-label">Email</div><div class="sub-detail-value"><a href="mailto:marcushnz@outlook.co.nz">marcushnz@outlook.co.nz</a></div></div>
+        <div><div class="sub-detail-label">Kindle Price</div><div class="sub-detail-value">10</div></div>
+        <div><div class="sub-detail-label">Amazon Link</div><div class="sub-detail-value"><a href="https://www.amazon.com/dp/B0GYDXXVQC" target="_blank">https://www.amazon.com/dp/B0GYDXXVQC</a></div></div>
+      </div>
+      <div class="sub-detail-label">Description</div>
+      <div class="sub-desc-full">dsfasd adsgdsgd afdgdgg adsgda</div>
+    </div>
+  </div></div></div>
+    <div class="tab-panel" id="tab-approved"><div class="submissions-list" id="list-approved"><div class="sub-card" id="card-6">
+    <div class="sub-card-header">
+      <div style="flex:1;min-width:0">
+        <div class="sub-book-title">dvSDF</div>
+        <div class="sub-book-author">by m</div>
+        <div class="sub-meta">
+          <span class="sub-tag tag-genre">Business</span>
+          <span class="sub-tag tag-approved">✓ Approved</span>
+          <span class="sub-tag tag-date">10 May 2026</span>
+          <select class="listing-select" onchange="doListingType(&#39;6&#39;, this.value)">
+    <option value="new_arrivals" selected="">→ New Arrivals</option>
+    <option value="featured">★ Featured</option>
+  </select>
+        </div>
+      </div>
+      <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;6&#39;)">Undo</button>
+       <button class="btn-delete" onclick="doDelete(&#39;6&#39;)" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button></div>
+      <svg onclick="toggleCard(&#39;6&#39;)" class="expand-arrow" id="arrow-6" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="sub-card-body" id="body-6">
+      <div class="sub-detail-grid">
+        <div><div class="sub-detail-label">Submitter</div><div class="sub-detail-value">M</div></div>
+        <div><div class="sub-detail-label">Email</div><div class="sub-detail-value"><a href="mailto:marcushnz@outlook.co.nz">marcushnz@outlook.co.nz</a></div></div>
+        <div><div class="sub-detail-label">Kindle Price</div><div class="sub-detail-value">9</div></div>
+        <div><div class="sub-detail-label">Amazon Link</div><div class="sub-detail-value"><a href="https://www.amazon.com/dp/B0GYDXXVQC" target="_blank">https://www.amazon.com/dp/B0GYDXXVQC</a></div></div>
+      </div>
+      <div class="sub-detail-label">Description</div>
+      <div class="sub-desc-full">ddsga dasadsd   dadgda  dasgdsg adgdga</div>
+    </div>
+  </div><div class="sub-card" id="card-5">
+    <div class="sub-card-header">
+      <div style="flex:1;min-width:0">
+        <div class="sub-book-title">cxvxzZ</div>
+        <div class="sub-book-author">by DZGDS</div>
+        <div class="sub-meta">
+          <span class="sub-tag tag-genre">Fiction</span>
+          <span class="sub-tag tag-approved">✓ Approved</span>
+          <span class="sub-tag tag-date">10 May 2026</span>
+          <select class="listing-select" onchange="doListingType(&#39;5&#39;, this.value)">
+    <option value="new_arrivals" selected="">→ New Arrivals</option>
+    <option value="featured">★ Featured</option>
+  </select>
+        </div>
+      </div>
+      <div class="sub-card-actions"><button class="btn-undo" onclick="doUndo(&#39;5&#39;)">Undo</button>
+       <button class="btn-delete" onclick="doDelete(&#39;5&#39;)" style="background:#e74c3c;color:#fff;border:none;padding:.45rem .9rem;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;">🗑 Remove</button></div>
+      <svg onclick="toggleCard(&#39;5&#39;)" class="expand-arrow" id="arrow-5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="sub-card-body" id="body-5">
+      <div class="sub-detail-grid">
+        <div><div class="sub-detail-label">Submitter</div><div class="sub-detail-value">M</div></div>
+        <div><div class="sub-detail-label">Email</div><div class="sub-detail-value"><a href="mailto:marcushnz@outlook.co.nz">marcushnz@outlook.co.nz</a></div></div>
+        <div><div class="sub-detail-label">Kindle Price</div><div class="sub-detail-value">10</div></div>
+        <div><div class="sub-detail-label">Amazon Link</div><div class="sub-detail-value"><a href="https://www.amazon.com/dp/B0GYDXXVQC" target="_blank">https://www.amazon.com/dp/B0GYDXXVQC</a></div></div>
+      </div>
+      <div class="sub-detail-label">Description</div>
+      <div class="sub-desc-full">DASA AGADG AADGBA ADGGADG</div>
+    </div>
+  </div></div></div>
+    <div class="tab-panel" id="tab-declined"><div class="submissions-list" id="list-declined"><div class="empty-state"><h3>No declined submissions</h3><p>Nothing here yet.</p></div></div></div>
 
     <div class="tab-panel" id="tab-listings">
       <div class="settings-card" style="margin-bottom:1rem">
@@ -184,11 +269,11 @@ body{background:var(--bg);color:var(--paper);font-family:'Barlow',sans-serif;fon
         <div class="settings-title">Change Admin Password</div>
         <div class="settings-sub">Minimum 8 characters.</div>
         <label class="settings-label">Current Password</label>
-        <input class="settings-input" type="password" id="curr-pass" placeholder="Current password" />
+        <input class="settings-input" type="password" id="curr-pass" placeholder="Current password">
         <label class="settings-label">New Password</label>
-        <input class="settings-input" type="password" id="new-pass" placeholder="New password" />
+        <input class="settings-input" type="password" id="new-pass" placeholder="New password">
         <label class="settings-label">Confirm New Password</label>
-        <input class="settings-input" type="password" id="confirm-pass" placeholder="Repeat new password" />
+        <input class="settings-input" type="password" id="confirm-pass" placeholder="Repeat new password">
         <button class="settings-btn" id="changePassBtn">Update Password</button>
       </div>
 
@@ -252,8 +337,45 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.add('active');
     document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
     if (btn.dataset.tab === 'listings') renderListings();
+    // Reload from Supabase when switching to approved or declined tabs
+    if (btn.dataset.tab === 'approved' || btn.dataset.tab === 'declined') {
+      reloadTabFromSupabase(btn.dataset.tab);
+    }
   });
 });
+
+async function reloadTabFromSupabase(status) {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/bl_submissions?status=eq.${status}&order=submitted_at.desc`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    if (res.ok) {
+      const items = await res.json();
+      if (Array.isArray(items)) {
+        // Update local submissions
+        const otherStatus = submissions.filter(s => s.status !== status);
+        submissions = [...otherStatus, ...items];
+        saveSubmissions();
+        // Re-render the specific tab
+        renderList(`list-${status}`, items, status);
+        updateStats();
+      }
+    }
+  } catch(e) { console.warn('Reload failed:', e); }
+}
+
+function updateStats() {
+  const pending  = submissions.filter(s => s.status === 'pending');
+  const approved = submissions.filter(s => s.status === 'approved');
+  const declined = submissions.filter(s => s.status === 'declined');
+  document.getElementById('stat-pending').textContent  = pending.length;
+  document.getElementById('stat-approved').textContent = approved.length;
+  document.getElementById('stat-declined').textContent = declined.length;
+  document.getElementById('stat-total').textContent    = submissions.length;
+  document.getElementById('badge-pending').textContent  = pending.length;
+  document.getElementById('badge-approved').textContent = approved.length;
+  document.getElementById('badge-declined').textContent = declined.length;
+}
 
 // ══ DATA ══
 function saveSubmissions() {
@@ -543,5 +665,6 @@ if (localStorage.getItem('bl_admin_auth') === '1') {
   init();
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
