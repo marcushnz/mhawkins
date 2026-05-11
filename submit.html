@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submit a Book — Book Launch</title>
+<meta name="description" content="Submit your book to Book Launch for a permanent listing. One-time US$5 payment. All formats welcome.">
+<meta property="og:title" content="Book Launch">
+<meta property="og:description" content="Submit your book to Book Launch for a permanent listing. One-time US$5 payment. All formats welcome.">
+<meta property="og:url" content="https://booklaunch.co.nz">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -523,7 +527,6 @@
           const existing = JSON.parse(localStorage.getItem('bl_submissions') || '[]');
           existing.unshift(rows[0]);
           localStorage.setItem('bl_submissions', JSON.stringify(existing));
-          console.log('Saved to Supabase with ID:', rows[0].id);
           return;
         }
       } else {
