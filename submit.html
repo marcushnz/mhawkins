@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0054)file:///C:/Users/MarcusHawkins/Downloads/submit_2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Submit a Book — Book Launch</title>
 <meta name="description" content="Submit your book to Book Launch for a permanent listing. One-time US$5 payment. All formats welcome.">
 <meta property="og:title" content="Book Launch">
 <meta property="og:description" content="Submit your book to Book Launch for a permanent listing. One-time US$5 payment. All formats welcome.">
 <meta property="og:url" content="https://booklaunch.co.nz">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="./submit_files/css2" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -90,7 +90,7 @@
   .step-connector { flex: 1; height: 1px; background: var(--rule); margin: 0 0.8rem; }
 
   /* Panels */
-  .form-panel { display: none; }
+  .form-panel { display: none; scroll-margin-top: 100px; }
   .form-panel.active { display: block; }
   .panel-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.3rem; }
   .panel-sub   { font-family: 'Barlow', sans-serif; font-size: 0.82rem; color: var(--muted); margin-bottom: 2rem; }
@@ -235,12 +235,12 @@
 
 <header>
   <div class="masthead-inner">
-    <a href="/index.html" class="logo">
+    <a href="file:///C:/index.html" class="logo">
       <span class="logo-main">Book Launch</span>
       <span class="logo-sub">New Titles Worth Reading</span>
     </a>
-    <a href="/index.html" class="back-link">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    <a href="file:///C:/index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
       Back to Books
     </a>
   </div>
@@ -276,12 +276,12 @@
       <div class="field-row">
         <div class="field">
           <label for="book-title">Book Title <span class="required">*</span></label>
-          <input type="text" id="book-title" placeholder="e.g. The Food Fix" />
+          <input type="text" id="book-title" placeholder="e.g. The Food Fix">
           <div class="field-error" id="err-title">Please enter the book title.</div>
         </div>
         <div class="field">
           <label for="book-author">Author Name <span class="required">*</span></label>
-          <input type="text" id="book-author" placeholder="e.g. Dr Marcus Hawkins" />
+          <input type="text" id="book-author" placeholder="e.g. Dr Marcus Hawkins">
           <div class="field-error" id="err-author">Please enter the author name.</div>
         </div>
       </div>
@@ -305,7 +305,7 @@
         </div>
         <div class="field">
           <label for="book-price">Kindle Price (USD) <span class="optional">(optional)</span></label>
-          <input type="text" id="book-price" placeholder="e.g. 9.99" />
+          <input type="text" id="book-price" placeholder="e.g. 9.99">
         </div>
       </div>
 
@@ -318,7 +318,7 @@
 
       <div class="field">
         <label for="book-amazon">Amazon / Kindle Link <span class="required">*</span></label>
-        <input type="url" id="book-amazon" placeholder="https://www.amazon.com/dp/XXXXXXXXXX" />
+        <input type="url" id="book-amazon" placeholder="https://www.amazon.com/dp/XXXXXXXXXX">
         <div class="field-hint">Paste the full Amazon product URL for your Kindle edition.</div>
         <div class="field-error" id="err-amazon">Please enter a valid Amazon URL.</div>
       </div>
@@ -326,28 +326,28 @@
       <div class="field-row">
         <div class="field">
           <label for="sub-name">Your Name <span class="required">*</span></label>
-          <input type="text" id="sub-name" placeholder="Your full name" />
+          <input type="text" id="sub-name" placeholder="Your full name">
           <div class="field-error" id="err-name">Please enter your name.</div>
         </div>
         <div class="field">
           <label for="sub-email">Your Email <span class="required">*</span></label>
-          <input type="email" id="sub-email" placeholder="you@example.com" />
+          <input type="email" id="sub-email" placeholder="you@example.com">
           <div class="field-hint">We'll confirm your listing here.</div>
           <div class="field-error" id="err-email">Please enter a valid email address.</div>
         </div>
       </div>
 
       <div class="policy-check">
-        <input type="checkbox" id="policy-agree" />
+        <input type="checkbox" id="policy-agree">
         <label for="policy-agree">
-          I confirm this book does not contain hate speech, explicit sexual content, extreme violence, misinformation, political propaganda, content targeting minors, or plagiarised / AI-generated material, as defined in the <a href="policy.html" target="_blank">Book Launch Content Policy</a>. I understand my submission may be declined and the listing fee is non-refundable.
+          I confirm this book does not contain hate speech, explicit sexual content, extreme violence, misinformation, political propaganda, content targeting minors, or plagiarised / AI-generated material, as defined in the <a href="file:///C:/Users/MarcusHawkins/Downloads/policy.html" target="_blank">Book Launch Content Policy</a>. I understand my submission may be declined and the listing fee is non-refundable.
         </label>
       </div>
       <div class="field-error" id="err-policy" style="margin-bottom:1.2rem;">You must agree to the Content Policy to continue.</div>
 
       <button class="btn-primary" onclick="goToReview()">
         Review &amp; Pay
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
       </button>
     </div>
 
@@ -375,17 +375,17 @@
       </div>
 
       <div class="stripe-note-box">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
         Clicking "Pay US$5" opens Stripe's secure checkout in a new tab. Your card details go directly to Stripe — we never see them. Once payment is complete, your submission lands in our inbox.
       </div>
 
       <div class="btn-row">
         <button class="btn-back" onclick="goBack()">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 5l-7 7 7 7"></path></svg>
           Edit Details
         </button>
         <button class="btn-primary btn-pay" onclick="goToStripe()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="4" width="22" height="16" rx="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
           Pay US$5 via Stripe
         </button>
       </div>
@@ -405,17 +405,17 @@
     <div class="sidebar-card">
       <div class="sidebar-title">What you get</div>
       <ul class="sidebar-list">
-        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Permanent listing in the Book Launch directory</li>
-        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Direct Kindle / Amazon link on your card</li>
-        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Genre categorisation and filtering</li>
-        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Editorial review within 5 business days</li>
-        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Email confirmation on approval</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Permanent listing in the Book Launch directory</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Direct Kindle / Amazon link on your card</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Genre categorisation and filtering</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Editorial review within 5 business days</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Email confirmation on approval</li>
       </ul>
     </div>
     <div class="sidebar-card sidebar-gap">
       <div class="sidebar-title">Good to know</div>
       <p class="sidebar-policy">
-        All books are reviewed against our <a href="policy.html">Content Policy</a>. Submission does not guarantee listing.<br><br>
+        All books are reviewed against our <a href="file:///C:/Users/MarcusHawkins/Downloads/policy.html">Content Policy</a>. Submission does not guarantee listing.<br><br>
         The US$5 fee is <strong>non-refundable</strong> regardless of outcome.<br><br>
         Payment is handled securely by <strong>Stripe</strong>. We never see your card details.<br><br>
         Questions? <a href="mailto:hello@booklaunch.co.nz">Contact us</a> before submitting.
@@ -428,10 +428,10 @@
   <div class="footer-inner">
     <span class="footer-brand">Book Launch</span>
     <div class="footer-links">
-      <a href="/index.html">Home</a>
-      <a href="policy.html">Content Policy</a>
-      <a href="submit.html">Submit a Book</a>
-      <a href="contact.html">Contact</a>
+      <a href="file:///C:/index.html">Home</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/policy.html">Content Policy</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/submit.html">Submit a Book</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/contact.html">Contact</a>
     </div>
   </div>
 </footer>
@@ -494,7 +494,11 @@
     document.getElementById('rev-amazon').textContent = document.getElementById('book-amazon').value.trim();
     document.getElementById('rev-email').textContent  = document.getElementById('sub-email').value.trim();
     setStep(2);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll so the pay button is visible
+    setTimeout(() => {
+      const payBtn = document.querySelector('.btn-pay');
+      if (payBtn) payBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
   }
 
   function goBack() {
@@ -580,5 +584,6 @@
     btn.innerHTML = originalHTML;
   }
 </script>
-</body>
-</html>
+
+
+</body></html>
