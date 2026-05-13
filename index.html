@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)index.html -->
+<!-- saved from url=(0060)file:///C:/Users/MarcusHawkins/Downloads/book-launch_11.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -645,12 +645,73 @@
   .footer-links a:hover { color: var(--ink); }
 
   /* ── RESPONSIVE ── */
+  /* ── TABLET ── */
+  @media (max-width: 900px) {
+    .featured-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── MOBILE ── */
   @media (max-width: 700px) {
+    /* Header */
+    .masthead-inner { padding: .5rem 0; }
+    .logo-main { font-size: 1.3rem; }
+    .logo-sub { font-size: .55rem; letter-spacing: .12em; }
+    nav { gap: .4rem; }
+    .hide-mobile { display: none; }
+    .submit-btn { padding: .3rem .6rem; font-size: .62rem; }
+    .admin-nav-btn { font-size: .62rem; }
+
+    /* Hero */
+    .hero-band { padding: 1.5rem 1rem 1.2rem; }
+    .hero-title { font-size: 1.4rem; }
+    .hero-desc { font-size: .8rem; }
+
+    /* Featured */
     .featured-grid { grid-template-columns: 1fr; }
     .featured-card + .featured-card { border-left: none; border-top: 2px solid var(--ink); }
-    nav { gap: 1rem; }
-    .hide-mobile { display: none; }
-    .footer-inner { flex-direction: column; gap: 0.5rem; }
+    .cover-wrap { height: 200px; }
+
+    /* Books grid - 2 columns on mobile */
+    .books-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .book-item {
+      width: 100%;
+    }
+    .book-card {
+      width: 100%;
+    }
+    .cover-sm-wrap {
+      width: 100%;
+      height: 220px;
+    }
+    .sm-kindle {
+      width: 100%;
+    }
+    .sm-footer {
+      width: 100%;
+    }
+
+    /* Filter bar */
+    .filter-btn { padding: .6rem .7rem; font-size: .62rem; }
+
+    /* Main padding */
+    main { padding: 1.5rem 1rem 3rem; }
+
+    /* Footer */
+    .footer-inner { flex-direction: column; gap: .5rem; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; gap: .8rem; }
+
+    /* Section labels */
+    .section-label { font-size: 1.1rem; }
+  }
+
+  /* ── SMALL MOBILE ── */
+  @media (max-width: 400px) {
+    .books-grid { grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .cover-sm-wrap { height: 180px; }
+    .logo-main { font-size: 1.1rem; }
   }
 </style>
 </head>
@@ -659,15 +720,15 @@
 <!-- HEADER -->
 <header>
   <div class="masthead-inner">
-    <a href="index" class="logo">
+    <a href="file:///C:/Users/MarcusHawkins/Downloads/book-launch_11.html#" class="logo">
       <span class="logo-main">Book Launch</span>
       <span class="logo-sub">New Titles Worth Reading</span>
     </a>
     <nav>
-      <a href="index.html#featured">Featured</a>
-      <a href="index.html#new" class="hide-mobile">New Arrivals</a>
-      <a href="index.html#submit.html" class="submit-btn">Submit a Book</a>
-      <a href="index.html#contact.html" class="admin-nav-btn">Contact</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/book-launch_11.html#featured">Featured</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/book-launch_11.html#new" class="hide-mobile">New Arrivals</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/submit.html" class="submit-btn">Submit a Book</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/contact.html" class="admin-nav-btn">Contact</a>
     </nav>
   </div>
 </header>
@@ -676,7 +737,7 @@
 <section class="hero-band">
   <h1 class="hero-title">The book listing site for all new releases</h1>
   <p class="hero-desc">Fiction, non-fiction, eBook, paperback, audiobook — all formats welcome. Updated regularly. List your book for a one-time US$5 payment.</p>
-  <p class="hero-desc" style="margin-top:0.6rem; font-size:0.78rem;"><a href="index.html#policy.html" style="color:rgba(245,240,232,0.55); text-decoration:underline; letter-spacing:0.05em;">Content Policy</a></p>
+  <p class="hero-desc" style="margin-top:0.6rem; font-size:0.78rem;"><a href="file:///C:/Users/MarcusHawkins/Downloads/policy.html" style="color:rgba(245,240,232,0.55); text-decoration:underline; letter-spacing:0.05em;">Content Policy</a></p>
 </section>
 
 <!-- FILTER BAR -->
@@ -877,11 +938,11 @@
     <span class="footer-brand">Book Launch</span>
 
     <div class="footer-links">
-      <a href="about.html">About</a>
-      <a href="policy.html">Content Policy</a>
-      <a href="submit.html">Submit a Book</a>
-      <a href="contact.html">Contact</a>
-      <a href="admin.html">Admin</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/about.html">About</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/policy.html">Content Policy</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/submit.html">Submit a Book</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/contact.html">Contact</a>
+      <a href="file:///C:/Users/MarcusHawkins/Downloads/admin.html">Admin</a>
     </div>
   </div>
 </footer>
